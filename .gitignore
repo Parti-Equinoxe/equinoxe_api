@@ -1,0 +1,7 @@
+**/node_modules/
+**/*-lock.json
+**/.DS_store
+**/.idea
+/service-account-key.json
+src/service-account-key.json
+**/*.iml
