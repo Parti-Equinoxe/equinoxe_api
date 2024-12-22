@@ -16,27 +16,21 @@ async function brevo(path) {
 }
 
 async function qomon(path) {
-    const res = await axios.post(`https://incoming.qomon.app/${path}`, {
-        data: {
-            "advanced_search": {
-                "per_page": 10,
-                "query": {
-                    "$all": []
-                }
-            }
-        }
-    }, {
+    const res = await axios.get(`https://incoming.qomon.app/${path}`, {
         headers: {
             "accept": "application/json",
             "Authorization": `Bearer ${process.env.TOKEN_QOMON}`,
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "user-agent": "equinoxe/api"
         },
     }).catch(e => {
         console.log(e)
+        console.log(`https://incoming.qomon.app/${path}`)
+        return {data: e.toString()}
     });
-    console.log(res.data);
+    console.log(res.data.data.contact);
     return res.data
 }
 
-qomon("search")
+qomon("contacts/127503978")
 
