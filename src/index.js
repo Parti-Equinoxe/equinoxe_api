@@ -1,11 +1,9 @@
 const express = require('express');
 const fs = require("fs").promises;
 const {blue, magenta, blackBright, underline, redBright, green} = require("cli-color");
-const cors = require("cors")
 require("dotenv").config();
-
 const app = express();
-//app.use(cors);
+const tokens = ["aa"];
 let routes = [];
 
 async function readDirRoutes(path) {
@@ -29,21 +27,35 @@ async function readDirRoutes(path) {
     });
 }
 
+function verifyToken(headers) {
+    if (!headers.authorization) return false;
+    const token = headers.authorization.replace("Bearer ", "");
+    console.log(token);
+    return tokens.includes(token);
+}
+
 async function init() {
     console.log(blue.bold("Loading routes:"));
     await readDirRoutes("routes");
     for (const route of routes) {
         app[route.method.toLowerCase()](route.route, async (req, res) => {
             const date = Date.now();
-            let result = false;
+            let result = {};
+            if (!verifyToken(req.headers)) return res.send({
+                state: "Unauthorized",
+                status: 401,
+                message: "You need to add authorization: Bearer <token> in the header.",
+                temps: Date.now() - date,
+            });
             try {
                 result = await route.exec(req, res);
             } catch (e) {
                 console.log(redBright(`>> erreur dans ${route.route}`));
                 console.log(e);
-                res.send({state: "fail", error: e});
+                res.send({state: "fail", error: e, status: 400});
             }
             return res.send({
+                status: 200,
                 state: result.error ? "fail" : "done",
                 temps: Date.now() - date,
                 ...result
@@ -53,8 +65,7 @@ async function init() {
 }
 
 init().then(() => {
-    const port = 3000;
-    app.listen(port, async () => {
-        console.log(blackBright.bold(`Server is start on ` + underline(`localhost:${port}`)));
+    app.listen(process.env.PORT, async () => {
+        console.log(blackBright.bold(`Server is start on ` + underline(`localhost:${process.env.PORT}`)));
     });
 });
