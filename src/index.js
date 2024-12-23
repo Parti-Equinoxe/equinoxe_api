@@ -27,6 +27,6 @@ const qomon = require("./qomon.js");
                 ]
             }
         }
-    }))//contacts/127503978
+    }))
 })()
 
