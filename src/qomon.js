@@ -23,6 +23,7 @@ function formatError(e) {
         }
     };
 }
+
 /**
  * Permet de faire une requete sur l'api qomon
  * @param {String} path - l'action à effectuer (voir doc qomon)
