@@ -1,0 +1,19 @@
+{
+  "name": "equinoxe_api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs"
+  },
+  "dependencies": {
+    "axios": "1.7.8",
+    "cli-color": "2.0.4",
+    "dotenv": "16.4.7"
+  },
+  "devDependencies": {
+    "nitropack": "latest"
+  }
+}
