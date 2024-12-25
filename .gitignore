@@ -1,7 +1,8 @@
-node_modules
-dist
-.data
-.nitro
-.cache
-.output
+node_modules/
+dist/
+.data/
+.nitro/
+.cache/
+.output/
 .env
+.idea/
