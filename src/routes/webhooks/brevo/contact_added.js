@@ -1,7 +1,13 @@
 module.exports = {
-    exec(req) {
-        console.log(req);
+    method: "POST",
+    /**
+     * @param {Request} req
+     * @param {Response} res
+     * @return {{message: string}}
+     */
+    exec(req, res) {
+        console.log(req.body);
         //penser à ajouter verif ip
-        return {message: "Bienvenu sur l'API Équinoxe !"};
+        return {message: "Nice"};
     }
 }
