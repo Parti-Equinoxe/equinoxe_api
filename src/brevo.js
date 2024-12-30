@@ -26,3 +26,12 @@ module.exports.get = async (path, parameters = []) => {
     return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`) : ""}`,
         this.config).catch(formatError)).data;
 }
+
+/**
+ * Permet de recupérer les information d'un contact
+ * @param email
+ * @return {Promise<Object>}
+ */
+module.exports.getContact = async (email) => {
+    return await this.get("contacts/" + email, [{label: "identifierType", value: "email_id"}]);
+}
