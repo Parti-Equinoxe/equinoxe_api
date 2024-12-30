@@ -3,6 +3,7 @@ const fs = require("fs").promises;
 const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
 require("dotenv").config();
 const app = express();
+app.use(express.json());
 const tokens = ["aa"];
 let routes = [];
 
@@ -20,7 +21,7 @@ async function readDirRoutes(path) {
                 route.exec = route.exec || function (req, res) {
                     return res.send("/!\\ No exec function defined for this route");
                 };
-                console.log(`> ${name} (${magenta(route.method)})${route.auth !== "none" ? " (" + redBright(route.auth) + ")" : ""}`);
+                console.log(`> ${name} (${magenta(route.method)})`);
                 return routes.push(route);
             });
         }));
@@ -41,7 +42,7 @@ async function init() {
         app[route.method.toLowerCase()](route.route, async (req, res) => {
             const date = Date.now();
             let result = {};
-            if (!verifyToken(req.headers)) {
+            if (false && !verifyToken(req.headers)) {
                 console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip})`));
                 return res.status(401).send({
                     state: "Unauthorized",
