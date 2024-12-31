@@ -28,7 +28,7 @@ module.exports.get = async (path, parameters = []) => {
 }
 
 /**
- * Permet de recupérer les information d'un contact
+ * Permet de recupérer les informations d'un contact
  * @param email
  * @return {Promise<Object>}
  */
