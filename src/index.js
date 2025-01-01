@@ -58,7 +58,6 @@ async function init() {
                 console.log(e);
                 res.status(400).send({state: "fail", error: e, status: 400});
             }
-            console.log(result);
             return res.status(result.error ? 400 : 200).send({
                 status: result.error ? 400 : 200,
                 state: result.error ? "fail" : "done",
