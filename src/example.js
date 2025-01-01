@@ -1,6 +1,6 @@
 require("dotenv").config();
-const brevo = require("./brevo.js");
-const qomon = require("./qomon.js");
+const brevo = require("./api/brevo.js");
+const qomon = require("./api/qomon.js");
 
 
 (async () => {
