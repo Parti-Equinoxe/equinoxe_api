@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1247289,
+    "event": "contact_updated",
+    "content": {
+      "emails": [
+        "test.test@test.tt",
+        "test.testtest@test.tt"
+      ],
+      "unlink_list_ids": [
+        17
+      ]
+    },
+    "date": "2025-01-01T17:02:05.115Z",
+    "ts": 1735750925
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1247289,
+    "event": "list_addition",
+    "list_id": [
+      17
+    ],
+    "date": "2025-01-01T16:56:27.114Z",
+    "ts": 1735750587,
+    "content": {
+      "emails": [
+        "test.test@test.tt",
+        "test.testtest@test.tt"
+      ]
+    },
+    "emails": [
+      "test.test@test.tt",
+      "test.testtest@test.tt"
+    ]
+  },
+  {
+    "id": 1247289,
+    "event": "contact_updated",
+    "content": {
+      "emails": [
+        "test.test@test.tt",
+        "test.testtest@test.tt"
+      ],
+      "link_list_ids": [
+        17
+      ]
+    },
+    "date": "2025-01-01T16:56:27.114Z",
+    "ts": 1735750587
+  }
+]
