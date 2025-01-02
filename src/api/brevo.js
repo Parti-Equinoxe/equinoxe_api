@@ -1,5 +1,6 @@
 const axios = require("axios");
 const link = "https://api.brevo.com/v3/";
+
 /**
  * Configuration de l'api brevo
  * @type {{headers: {"accept": "application/json", "api-key": string, "content-type": "application/json"}}}
