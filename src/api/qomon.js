@@ -1,5 +1,8 @@
 const axios = require("axios");
 const link = "https://incoming.qomon.app/";
+
+// TODO: Stocker la dernier request si une erreur ce produit
+
 /**
  * Configuration de l'api qomon
  * @type {{headers: {"accept": "application/json", "Authorization": string, "content-type": "application/json","user-agent": "equinoxe/api"}}}
@@ -133,4 +136,10 @@ module.exports.updateContact = async (email, newData) => {
             this.config
         ).catch(formatError)
     ).data;
+}
+
+module.exports.deleteContact = async (email) => {
+    const userID = await this.getID(email);
+    if (userID === "0") return {error: "Contact not found"};
+    return (await axios.delete(`${link}contacts/${userID}`, this.config).catch(formatError));
 }
