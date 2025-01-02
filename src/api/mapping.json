@@ -1,0 +1,27 @@
+[
+  {
+    "id": "nom",
+    "brevo": "attributes.NOM",
+    "qomon": "surname"
+  },
+  {
+    "id": "prenom",
+    "brevo": "attributes.PRENOM",
+    "qomon": "firstname"
+  },
+  {
+    "id": "email",
+    "brevo": "updated_email",
+    "qomon": "mail"
+  },
+  {
+    "id": "tel",
+    "brevo": "attributes.SMS",
+    "qomon": "mobile"
+  },
+  {
+    "id": "code_postal",
+    "brevo": "attributes.CODE_POSTAL",
+    "qomon": "adress.postalcode"
+  }
+]
