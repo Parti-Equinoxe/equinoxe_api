@@ -56,11 +56,11 @@ async function init() {
             } catch (e) {
                 console.log(redBright(`>> erreur dans ${route.route}`));
                 console.log(e);
-                res.status(400).send({state: "fail", error: e, status: 400});
+                res.status(500).send({state: "Internal Server Error", error: e, status: 500});
             }
             return res.status(result.error ? 400 : 200).send({
                 status: result.error ? 400 : 200,
-                state: result.error ? "fail" : "done",
+                state: result.error ? "Bad Request" : "OK",
                 temps: Date.now() - date,
                 ...result
             });
