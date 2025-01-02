@@ -1,5 +1,6 @@
 const status = require("../../../api/status.json");
 const qomon = require("../../../api/qomon");
+const form_NS_id = 82467;
 module.exports = {
     method: "POST",
     /**
@@ -10,30 +11,27 @@ module.exports = {
     async exec(req, res) {
         const data = req.body;
         console.dir(data, {depth: null});
-        if (!data || data.event !== "list_addition" || !data.list_id || !data.emails) return {error: "Bad event."};
+        if (!data || data.event !== "list_addition" || !data.list_id || (!data.emails && !data.email)) return {error: "Bad event."};
         let count = 0;
         const list_ids = data.list_id.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id))
-        for (const email of data.emails) {
-            const userID = await qomon.getID(email);
-            if (userID === "0") continue; //créer le contact ?
-            const userData = await qomon.get(`contacts/${userID}`);
-            console.log("#########");
-            console.log(userID);
-            console.log(userData);
-            console.log("#########");
+        for (const email of (data.emails ?? [data.email])) {
+            //code pour verif les niveaux, mit en pause pour le moment
+            /*const userNS = (await qomon.getContact(email)).formdatas.find(f => f.form_id === form_NS_id) ?? {data: "None"};
+            const NS = status.status.find(s => s.id_qomon.toLowerCase() === userNS.data) ?? {
+                "name": "None",
+                "rank": 10
+            };
+            console.log(userNS);
+            console.log(NS);*/
             for (const list of list_ids) {
-                const r = await qomon.upsertContact({//`contacts/${userID}`,
-                    //contact: {
-                        ...(userData.contact),
-                        //firstname: "Test_liste",
+                const r = await qomon.updateContact(email,{
                         status:
                             [{
                                 label: "Niveau de soutien",
                                 value: list.id_qomon
                             }]
-                    //}
                 });
-                console.log(r)
+                if (r.error) console.log(r);
             }
             count++;
         }
