@@ -2,20 +2,21 @@
   "filters": {
     "brevo": [
       16,
-      23,
-      17
+      23
     ]
   },
   "status": [
     {
       "id_brevo": 16,
-      "id_qomon": 1,
-      "name": "Adhérents"
+      "id_qomon": "Adhérent(e)",
+      "name": "Adhérents",
+      "rank": 1
     },
     {
       "id_brevo": 23,
-      "id_qomon": 2,
-      "name": "Sympathisants"
+      "id_qomon": "Sympathisant(e)",
+      "name": "Sympathisants",
+      "rank": 2
     }
   ]
 }
