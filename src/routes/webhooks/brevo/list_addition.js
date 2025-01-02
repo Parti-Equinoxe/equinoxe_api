@@ -31,11 +31,13 @@ module.exports = {
                                 value: list.id_qomon
                             }]
                 });
-                if (r.error) console.log(r);
+                if (r.error) {
+                    console.log(r);
+                }
             }
             count++;
         }
         if (count === 0) return {message: "No modification required."};
-        return {message: "Nice"};
+        return {message: "List updated"};
     }
 }
