@@ -1,6 +1,6 @@
 const status = require("../../../api/status.json");
 const qomon = require("../../../api/qomon");
-const form_NS_id = 82467;
+//const form_NS_id = 82467;
 module.exports = {
     method: "POST",
     /**
