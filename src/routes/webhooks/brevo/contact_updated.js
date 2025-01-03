@@ -16,13 +16,6 @@ module.exports = {
         const content = [data.content].flat();
         console.log(content);
         for (const atr of content) {
-            /*const atrAsTab = Object.keys(atr).map((f)=>{
-                return {
-                    name: f,
-                    value: atr[f]
-                }
-            });
-            console.log(atrAsTab);*/
             const fiels = mapping.filter((key) => callFromString(atr, key.brevo));
             let newData = {};
             for (const field of fiels) {
