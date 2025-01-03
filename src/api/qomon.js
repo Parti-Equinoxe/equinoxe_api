@@ -1,5 +1,9 @@
 const axios = require("axios");
 const link = "https://incoming.qomon.app/";
+const brevo = require("./brevo.js");
+const mapping = require("./mapping.json");
+const {callFromString, setFromString} = require("./utils");
+const status = require("./status.json");
 
 // TODO: Stocker la dernier request si une erreur ce produit
 
@@ -113,7 +117,7 @@ module.exports.getContact = async (email) => {
     return userData.contact ?? userData;
 }
 
-const fieldDelete = ["CreatedAt","UpdatedAt","action_ids", "group_id", "user_id", "formdatas", "nationbuilderid", "membership_member"]
+const fieldDelete = ["CreatedAt", "UpdatedAt", "action_ids", "group_id", "user_id", "formdatas", "nationbuilderid", "membership_member"]
 /**
  * Permet de ajouter / mettre a jour un contact
  * @param {String} email - l'email du contact
@@ -138,8 +142,47 @@ module.exports.updateContact = async (email, newData) => {
     ).data;
 }
 
+/**
+ * Permet de supprimer un contact
+ * @param {String} email - l'email du contact
+ * @return {Promise<Object>}
+ */
 module.exports.deleteContact = async (email) => {
     const userID = await this.getID(email);
     if (userID === "0") return {error: "Contact not found"};
     return (await axios.delete(`${link}contacts/${userID}`, this.config).catch(formatError));
+}
+
+/**
+ * Permet de supprimer un contact
+ * @param {String} email - l'email du contact
+ * @return {Promise<Object>}
+ */
+module.exports.createContact = async (email) => {
+    const userID = await this.getID(email);
+    if (userID !== "0") return {error: "Contact already exists"};
+    const rawData = await brevo.getContact(email);
+    console.dir(rawData, {depth: null});
+    let data = {};
+    for (const field of mapping) {
+        data = setFromString(data, field.qomon, callFromString(rawData, field.brevo));
+        //data[field.qomon] = callFromString(rawData, field.brevo);
+    }
+    if (!data.mail) data.mail = email;
+    if (rawData.listIds) {
+        data.status = rawData.listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id))
+            .map((list) => {
+                return {
+                    label: "Niveau de soutien",
+                    value: list.id_qomon
+                }
+            });
+    }
+
+    console.dir(data, {depth: null});
+    return (await axios.post(`${link}contacts/upsert`,
+            {kind: "contact", data: data},
+            this.config
+        ).catch(formatError)
+    ).data;
 }
