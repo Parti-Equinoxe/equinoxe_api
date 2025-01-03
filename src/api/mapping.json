@@ -22,6 +22,6 @@
   {
     "id": "code_postal",
     "brevo": "attributes.CODE_POSTAL",
-    "qomon": "adress.postalcode"
+    "qomon": "address.postalcode"
   }
 ]
