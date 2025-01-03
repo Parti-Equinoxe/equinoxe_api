@@ -1,5 +1,6 @@
 const mapping = require("../../../api/mapping.json");
 const qomon = require("../../../api/qomon");
+const {callFromString} = require("../../../api/utils");
 module.exports = {
     method: "POST",
     /**
@@ -37,14 +38,4 @@ module.exports = {
         if (!done) return {message: "No modification required."};
         return {message: "Contact updated"};
     }
-}
-
-function callFromString(object, path) {
-    const keys = path.split(".");
-    let val = object;
-    for (const key of keys) {
-        if (!val[key]) return undefined;
-        val = val[key];
-    }
-    return val;
 }
