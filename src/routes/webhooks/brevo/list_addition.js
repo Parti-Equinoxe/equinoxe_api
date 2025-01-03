@@ -1,5 +1,6 @@
 const status = require("../../../api/status.json");
 const qomon = require("../../../api/qomon");
+const {redBright} = require("cli-color");
 //const form_NS_id = 82467;
 module.exports = {
     method: "POST",
@@ -31,9 +32,7 @@ module.exports = {
                                 value: list.id_qomon
                             }]
                 });
-                if (r.error) {
-                    console.log(r);
-                }
+                if (r.error) console.log(redBright(`Error updating list for contact ${email} and list ${list.id_qomon}: ${r}`));
             }
             count++;
         }

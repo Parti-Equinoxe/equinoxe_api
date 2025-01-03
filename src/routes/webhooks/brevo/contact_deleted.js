@@ -1,4 +1,5 @@
 const qomon = require("../../../api/qomon");
+const {redBright} = require("cli-color");
 
 module.exports = {
     method: "POST",
@@ -15,7 +16,8 @@ module.exports = {
         if (!data.email || data.email.length === 0) return {error: "No email."};
         for (const email of data.email) {
             console.log(email);
-            //await qomon.deleteContact(email);
+            //const r = await qomon.deleteContact(email);
+            //if (r.error) console.log(redBright(`Error deleting contact ${email}: ${r}`));
             //désactiver par sécurité pour le moment
         }
         return {message: "Contact deleted"};
