@@ -16,7 +16,7 @@ module.exports = {
         for (const email of data.email) {
             console.log(email);
             //await qomon.deleteContact(email);
-            // todo: code pour sup sur qomon a rajouter
+            //désactiver par sécurité pour le moment
         }
         return {message: "Contact deleted"};
     }
