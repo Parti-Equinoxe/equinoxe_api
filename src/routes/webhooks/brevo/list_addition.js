@@ -32,7 +32,11 @@ module.exports = {
                                 value: list.id_qomon
                             }]
                 });
-                if (r.error) console.log(redBright(`Error updating list for contact ${email} and list ${list.id_qomon}: ${r}`));
+                if (r.error === "Contact not found") {
+                    console.log(email);
+                    //const rc = await qomon.createContact(email);
+                    //if (rc.error) console.log(redBright(`Error creating contact ${email}: ${JSON.stringify(rc)}`));
+                } else if (r.error) console.log(redBright(`Error updating contact ${email}: ${JSON.stringify(r)}`));
             }
             count++;
         }

@@ -17,7 +17,7 @@ module.exports = {
         for (const email of data.email) {
             console.log(email);
             //const r = await qomon.deleteContact(email);
-            //if (r.error) console.log(redBright(`Error deleting contact ${email}: ${r}`));
+            //if (r.error) console.log(redBright(`Error deleting contact ${email}: ${JSON.stringify(r)}`));
             //désactiver par sécurité pour le moment
         }
         return {message: "Contact deleted"};

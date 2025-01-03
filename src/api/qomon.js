@@ -1,7 +1,7 @@
 const axios = require("axios");
 const link = "https://incoming.qomon.app/";
 const brevo = require("./brevo.js");
-const mapping = require("./mapping.json");
+const mapping = require("./mapping.js");
 const {callFromString, setFromString} = require("./utils");
 const status = require("./status.json");
 

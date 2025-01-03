@@ -1,4 +1,4 @@
-const mapping = require("../../../api/mapping.json");
+const mapping = require("../../../api/mapping.js");
 const qomon = require("../../../api/qomon");
 const {callFromString} = require("../../../api/utils");
 const {redBright} = require("cli-color");
@@ -23,10 +23,10 @@ module.exports = {
             }
             const r = await qomon.updateContact(atr.email, newData);
             if (r.error === "Contact not found") {
-                const rc = await qomon.createContact(atr.email);
-                if (rc.error) console.log(redBright(`Error creating contact ${atr.email}: ${rc}`));
-            }
-            if (r.error) console.log(redBright(`Error updating contact ${atr.email}: ${r}`));
+                console.log(atr.email);
+                //const rc = await qomon.createContact(atr.email);
+                //if (rc.error) console.log(redBright(`Error creating contact ${atr.email}: ${JSON.stringify(rc)}`));
+            } else if (r.error) console.log(redBright(`Error updating contact ${atr.email}: ${JSON.stringify(r)}`));
             done = true;
         }
         if (!done) return {message: "No modification required."};
