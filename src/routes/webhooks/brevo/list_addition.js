@@ -24,7 +24,7 @@ module.exports = {
             };
             console.log(userNS);
             console.log(NS);*/
-            for (const list of list_ids) {
+            /*for (const list of list_ids) {
                 const r = await qomon.updateContact(email,{
                         status:
                             [{
@@ -37,7 +37,20 @@ module.exports = {
                     //const rc = await qomon.createContact(email);
                     //if (rc.error) console.log(redBright(`Error creating contact ${email}: ${JSON.stringify(rc)}`));
                 } else if (r.error) console.log(redBright(`Error updating contact ${email}: ${JSON.stringify(r)}`));
-            }
+            }*/
+            const r = await qomon.updateContact(email,{
+                status: list_ids.map((list) => {
+                    return {
+                        label: "Niveau de soutien",
+                        value: list.id_qomon
+                    }
+                })
+            });
+            if (r.error === "Contact not found") {
+                console.log(email);
+                //const rc = await qomon.createContact(email);
+                //if (rc.error) console.log(redBright(`Error creating contact ${email}: ${JSON.stringify(rc)}`));
+            } else if (r.error) console.log(redBright(`Error updating contact ${email}: ${JSON.stringify(r)}`));
             count++;
         }
         if (count === 0) return {message: "No modification required."};
