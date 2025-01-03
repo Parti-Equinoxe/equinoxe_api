@@ -42,14 +42,14 @@ async function init() {
         app[route.method.toLowerCase()](route.route, async (req, res) => {
             const date = Date.now();
             let result = {};
-            if (false && !verifyToken(req.headers)) {
+            if (!verifyToken(req.headers)) {
                 console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip})`));
-                return res.status(401).send({
+                /*return res.status(401).send({
                     state: "Unauthorized",
                     status: 401,
                     message: "You need to add authorization: Bearer <token> in the header.",
                     temps: Date.now() - date,
-                });
+                });*/
             }
             try {
                 result = await route.exec(req, res);
