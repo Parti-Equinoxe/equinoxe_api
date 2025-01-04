@@ -166,8 +166,14 @@ module.exports.createContact = async (email) => {
     let data = {};
     for (const field of mapping) {
         data = setFromString(data, field.qomon, callFromString(rawData, field.brevo));
-        //data[field.qomon] = callFromString(rawData, field.brevo);
     }
+    data.tags = [
+        {
+            "name": "TEST",
+            "appearance_count": 0,
+            "color": "#ff0000"
+        }
+    ]
     if (!data.mail) data.mail = email;
     if (rawData.listIds) {
         data.status = rawData.listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id))
@@ -178,11 +184,11 @@ module.exports.createContact = async (email) => {
                 }
             });
     }
-
     console.dir(data, {depth: null});
-    return (await axios.post(`${link}contacts/upsert`,
+    /*return (await axios.post(`${link}contacts/upsert`,
             {kind: "contact", data: data},
             this.config
         ).catch(formatError)
-    ).data;
+    ).data;*/
+    return data;
 }
