@@ -25,14 +25,31 @@ function formatError(e) {
  */
 module.exports.get = async (path, parameters = []) => {
     return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`) : ""}`,
-        this.config).catch(formatError)).data;
+        this.config
+    ).catch(formatError)).data;
+}
+module.exports.put = async (path, data,parameters = []) => {
+    return (await axios.put(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`) : ""}`,
+        data,
+        this.config
+    ).catch(formatError)).data;
 }
 
 /**
  * Permet de recupérer les informations d'un contact
- * @param email
+ * @param {Srring} email
  * @return {Promise<Object>}
  */
 module.exports.getContact = async (email) => {
     return await this.get("contacts/" + email, [{label: "identifierType", value: "email_id"}]);
+}
+
+/**
+ * Permet de recupérer les informations d'un contact
+ * @param {String} email
+ * @param {String} data
+ * @return {Promise<Object>}
+ */
+module.exports.updateContact = async (email, data) => {
+    return await this.put("contacts/" + email, data,[{label: "identifierType", value: "email_id"}]);
 }
