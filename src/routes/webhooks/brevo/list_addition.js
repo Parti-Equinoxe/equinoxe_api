@@ -3,6 +3,7 @@ const qomon = require("../../../api/qomon");
 const {redBright} = require("cli-color");
 //const form_NS_id = 82467;
 module.exports = {
+    token: true,
     method: "POST",
     /**
      * @param {Request} req
@@ -34,8 +35,8 @@ module.exports = {
                 });
                 if (r.error === "Contact not found") {
                     console.log(email);
-                    //const rc = await qomon.createContact(email);
-                    //if (rc.error) console.log(redBright(`Error creating contact ${email}: ${JSON.stringify(rc)}`));
+                    const rc = await qomon.createContact(email);
+                    if (rc.error) console.log(redBright(`Error creating contact ${email}: ${JSON.stringify(rc)}`));
                 } else if (r.error) console.log(redBright(`Error updating contact ${email}: ${JSON.stringify(r)}`));
             }*/
             const r = await qomon.updateContact(email,{

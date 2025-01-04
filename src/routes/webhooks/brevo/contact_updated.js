@@ -2,8 +2,8 @@ const mapping = require("../../../api/mapping.js");
 const qomon = require("../../../api/qomon");
 const {callFromString, setFromString} = require("../../../api/utils");
 const {redBright} = require("cli-color");
-const {getContact} = require("../../../api/brevo");
 module.exports = {
+    token: true,
     method: "POST",
     /**
      * @param {Request} req

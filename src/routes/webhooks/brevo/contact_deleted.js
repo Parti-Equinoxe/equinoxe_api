@@ -2,6 +2,7 @@ const qomon = require("../../../api/qomon");
 const {redBright} = require("cli-color");
 
 module.exports = {
+    token: true,
     method: "POST",
     /**
      * @param {Request} req
