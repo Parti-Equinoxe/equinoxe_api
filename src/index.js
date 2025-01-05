@@ -1,9 +1,11 @@
 const express = require('express');
+const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
+app.use(cookieParser("testtesttest"));
 const tokens = ["aa"];
 let routes = [];
 
