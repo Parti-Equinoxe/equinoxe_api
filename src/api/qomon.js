@@ -101,7 +101,7 @@ module.exports.getID = async (email) => {
         }
     });
     if (!res.contacts || res.contacts.length === 0) return "0";
-    return (res.contacts.find(c => c.mail === email) ?? {id: 0}).id.tostring() ?? "0";
+    return (res.contacts.find(c => c.mail === email) ?? {id: 0}).id.toString() ?? "0";
 }
 
 /**
@@ -165,7 +165,9 @@ module.exports.createContact = async (email) => {
     console.dir(rawData, {depth: null});
     let data = {};
     for (const field of mapping) {
-        data = setFromString(data, field.qomon, callFromString(rawData, field.brevo));
+        const val = callFromString(rawData, field.brevo);
+        if (!val) continue;
+        data = setFromString(data, field.qomon, val);
     }
     data.tags = [
         {
