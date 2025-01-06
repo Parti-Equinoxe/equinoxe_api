@@ -1,6 +1,6 @@
 const axios = require("axios");
 const link = "https://api.brevo.com/v3/";
-const status = require("./status.json");
+const status = require("./lists_brevo.json");
 
 /**
  * Configuration de l'api brevo
@@ -77,24 +77,15 @@ module.exports.updateContact = async (email, data) => {
 
 /**
  * Permet de recupérer le status d'un contact
- * @param {{email: string}|{userID: string}|{id: string}} identifier
- * @return {Promise<{adh: boolean, symp: boolean}>}
+ * @param {Array<number>} listIds
+ * @return {{adh: boolean, symp: boolean}}
  */
-module.exports.getStatus = async (identifier) => {
-    let resp;
-    if (identifier.hasOwnProperty("email")) {
-        resp = await this.getContact(identifier.email);
-    }
-    if (identifier.hasOwnProperty("userID")) {
-        resp = await this.getContactFromDiscord(identifier.userID);
-    }
-    if (identifier.hasOwnProperty("ID")) {
-        resp = (await this.get("contacts/" + identifier.ID, [{label: "identifierType", value: "contact_id"}]));
-    }
-    if (!resp) resp = {listIds: []};
-    const lists = resp.listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id));
-    return {
-        adh: !!lists.find(l => l.name === "Adhérents"),
-        symp: !!lists.find(l => l.name === "Sympathisants")
-    };
+module.exports.transformList = (listIds) => {
+    console.log(listIds)
+    //const lists = listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id));
+    return status.status.reduce((acc, current)=>{
+        console.log(current);
+        acc[current.name] = listIds.includes(current.id_brevo);
+        return acc;
+    },{});
 }
