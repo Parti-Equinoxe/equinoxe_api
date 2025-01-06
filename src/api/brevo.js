@@ -89,3 +89,15 @@ module.exports.transformList = (listIds) => {
         return acc;
     },{});
 }
+
+/**
+ * Permet de savoir si ce contact a lié son compte discord ou pas
+ * @param {string} email
+ * @param {string} userID - l'id discord
+ * @return {Promise<boolean>}
+ */
+module.exports.isLinked = async (email, userID) => {
+    const userData = await this.getContact(email);
+    if (!userData) return false;
+    return userData.attributes.DISCORD_ID === userID;
+}
