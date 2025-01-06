@@ -31,8 +31,8 @@ module.exports = [
   },
   {
     "id": "genre",
-    "brevo": "attributes.GENDRE",
-    "qomon": "address.postalcode",
+    "brevo": "attributes.GENDER",
+    "qomon": "gender",
     transform: (b) => b[0] ?? "O" // premier caractere
   },
   {
