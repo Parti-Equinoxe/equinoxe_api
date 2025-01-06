@@ -19,8 +19,8 @@ function formatError(e) {
 
 /**
  * Permet de faire une requete sur l'api brevo
- * @param {String} path - l'action à effectuer (voir doc brevo)
- * @param {Array<{label: String, value:String}>} parameters - les parametres eventuels
+ * @param {string} path - l'action à effectuer (voir doc brevo)
+ * @param {Array<{label: string, value: string}>} parameters - les parametres eventuels
  * @return {Promise<Object>}
  */
 module.exports.get = async (path, parameters = []) => {
@@ -28,7 +28,7 @@ module.exports.get = async (path, parameters = []) => {
         this.config
     ).catch(formatError)).data;
 }
-module.exports.put = async (path, data,parameters = []) => {
+module.exports.put = async (path, data, parameters = []) => {
     return (await axios.put(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`) : ""}`,
         data,
         this.config
@@ -37,7 +37,7 @@ module.exports.put = async (path, data,parameters = []) => {
 
 /**
  * Permet de recupérer les informations d'un contact
- * @param {Srring} email
+ * @param {string} email
  * @return {Promise<Object>}
  */
 module.exports.getContact = async (email) => {
@@ -46,10 +46,22 @@ module.exports.getContact = async (email) => {
 
 /**
  * Permet de recupérer les informations d'un contact
- * @param {String} email
- * @param {String} data
+ * @param {string} email
+ * @param {string} data
  * @return {Promise<Object>}
  */
 module.exports.updateContact = async (email, data) => {
-    return await this.put("contacts/" + email, data,[{label: "identifierType", value: "email_id"}]);
+    return await this.put("contacts/" + email, data, [{label: "identifierType", value: "email_id"}]);
+}
+
+/**
+ * Permet de recupérer le status d'un contact
+ * @param {{email: string}|{userID:String}} identifier
+ * @return {Promise<Object>}
+ */
+module.exports.getStatus = async (identifier) => {
+    if (identifier.hasOwnProperty("userID")) {
+
+    }
+    return;
 }

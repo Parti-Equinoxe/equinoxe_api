@@ -1,6 +1,6 @@
-const {post, get} = require("axios");
+const {post, get, put} = require("axios");
 
-const platformName = "NAME";
+const platformName = "Test Adh";
 
 function formatToken(data) {
     return {
@@ -11,8 +11,8 @@ function formatToken(data) {
 }
 
 /**
- * @param {String} code
- * @return {Promise<{access_token: String, refresh_token: String, expires_at: Number}>}
+ * @param {string} code
+ * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
  */
 module.exports.getOAuthTokens = async (code) => {
     const tokenResponse = await post("https://discord.com/api/v10/oauth2/token", {
@@ -33,9 +33,9 @@ module.exports.getOAuthTokens = async (code) => {
 
 
 /**
- * @param {String} userId
- * @param {{access_token: String, refresh_token: String, expires_at: Number}} token
- * @return {Promise<{access_token: String, refresh_token: String, expires_at: Number}>}
+ * @param {string} userId
+ * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
  */
 module.exports.refreshToken = async (userId, token) => {
     if (Date.now() > token.expires_at) {
@@ -58,7 +58,7 @@ module.exports.refreshToken = async (userId, token) => {
 }
 
 /**
- * @param {{access_token: String, refresh_token: String, expires_at: Number}} token
+ * @param {{access_token: string, refresh_token: string, expires_at: number}} token
  * @return {Promise<Object>}
  */
 module.exports.getUserData = async (token) => {
@@ -73,14 +73,14 @@ module.exports.getUserData = async (token) => {
 
 const urlMetaData = `https://discord.com/api/v10/users/@me/applications/${process.env.DISCORD_CLIENT_ID}/role-connection`;
 /**
- * @param {String} userID
- * @param {{access_token: String, refresh_token: String, expires_at: Number}} token
+ * @param {string} userID
+ * @param {{access_token: string, refresh_token: string, expires_at: number}} token
  * @param {Object} metadata
  * @return {Promise<any>}
  */
 module.exports.pushMetaData = async (userID, token, metadata) => {
     token = await this.refreshToken(userID, token);
-    const respond = await post(urlMetaData, {
+    const respond = await put(urlMetaData, {
         platform_name: platformName,
         metadata
     }, {
@@ -92,8 +92,8 @@ module.exports.pushMetaData = async (userID, token, metadata) => {
     return respond.data;
 }
 /**
- * @param {String} userID
- * @param {{access_token: String, refresh_token: String, expires_at: Number}} token
+ * @param {string} userID
+ * @param {{access_token: string, refresh_token: string, expires_at: number}} token
  * @return {Promise<any>}
  */
 module.exports.getMetaData = async (userID, token) => {

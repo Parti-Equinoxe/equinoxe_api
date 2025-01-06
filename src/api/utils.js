@@ -10,14 +10,14 @@ function _callFromString(object, path) {
 
 /**
  * @param {Object} object
- * @param {String} path
+ * @param {string} path
  * @return {undefined | *}
  */
 module.exports.callFromString = _callFromString;
 
 /**
  * @param {Object} object
- * @param {String} path
+ * @param {string} path
  * @param {*} value
  * @return {undefined | *}
  */
