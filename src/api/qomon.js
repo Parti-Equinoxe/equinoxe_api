@@ -3,7 +3,7 @@ const link = "https://incoming.qomon.app/";
 const brevo = require("./brevo.js");
 const mapping = require("./mapping.js");
 const {callFromString, setFromString} = require("./utils");
-const status = require("./status.json");
+const status = require("./lists_brevo.json");
 
 // TODO: Stocker la dernier request si une erreur ce produit
 

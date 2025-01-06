@@ -1,4 +1,4 @@
-const status = require("../../../api/status.json");
+const status = require("../../../api/lists_brevo.json");
 const qomon = require("../../../api/qomon");
 const {redBright} = require("cli-color");
 //const form_NS_id = 82467;

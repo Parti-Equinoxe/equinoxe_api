@@ -9,13 +9,13 @@
     {
       "id_brevo": 16,
       "id_qomon": "Adhérent(e)",
-      "name": "Adhérents",
+      "name": "adherents",
       "rank": 1
     },
     {
       "id_brevo": 23,
       "id_qomon": "Sympathisant(e)",
-      "name": "Sympathisants",
+      "name": "sympathisants",
       "rank": 2
     }
   ]
