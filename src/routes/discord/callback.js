@@ -3,7 +3,7 @@ const {getOAuthTokens, getUserData, refreshToken} = require("../../api/discord")
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
-        const {state} = req.signedCookies;
+        const {state, email} = req.signedCookies; //TODO: amener l'email ici
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page erreurs
         const token = await getOAuthTokens(req.query.code);
         const user = await getUserData(token)
