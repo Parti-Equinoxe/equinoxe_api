@@ -33,7 +33,7 @@ function formatError(e) {
 }
 
 /**
- * Permet de faire une requete sur l'api qomon
+ * Permet de faire une requete (GET) sur l'api qomon
  * @param {string} path - l'action à effectuer (voir doc qomon)
  * @param {Array<{label: string, value:string}>} parameters - les parametres eventuels
  * @return {Promise<Object>}
@@ -46,7 +46,7 @@ module.exports.get = async (path, parameters = []) => {
 }
 
 /**
- * Permet de faire une requete sur l'api qomon
+ * Permet de faire une requete (POST) sur l'api qomon
  * @param {string} path - l'action à effectuer (voir doc qomon)
  * @param {Object} data - les parametres eventuels
  * @return {Promise<Object>}
@@ -60,7 +60,7 @@ module.exports.post = async (path, data = {}) => {
 }
 
 /**
- * Permet de faire une requete sur l'api qomon
+ * Permet de faire une requete (PATH) sur l'api qomon
  * @param {string} path - l'action à effectuer (voir doc qomon)
  * @param {Object} data - les parametres eventuels
  * @return {Promise<Object>}
@@ -119,7 +119,7 @@ module.exports.getContact = async (email) => {
 
 const fieldDelete = ["CreatedAt", "UpdatedAt", "action_ids", "group_id", "user_id", "formdatas", "nationbuilderid", "membership_member"]
 /**
- * Permet de ajouter / mettre a jour un contact
+ * Permet mettre a jour un contact
  * @param {string} email - l'email du contact
  * @param {Object} newData - les donne du contact à mettre à jour
  * @return {Promise<Object>}
@@ -154,7 +154,7 @@ module.exports.deleteContact = async (email) => {
 }
 
 /**
- * Permet de supprimer un contact
+ * Permet de creer un contact
  * @param {string} email - l'email du contact
  * @return {Promise<Object>}
  */
@@ -192,5 +192,6 @@ module.exports.createContact = async (email) => {
             this.config
         ).catch(formatError)
     ).data;*/
+    //TODO: activer la creation de contact
     return data;
 }
