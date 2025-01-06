@@ -4,7 +4,7 @@ module.exports = {
     method: "GET",
     exec: async (req, res) => {
         const {state, email} = req.signedCookies; //TODO: amener l'email ici
-        if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page erreurs
+        if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur
         let token = await getOAuthTokens(req.query.code);
         const userDiscord = await getUserData(token);
         if (!(await isLinked(email, userDiscord.id))) {
@@ -14,6 +14,7 @@ module.exports = {
         }
         //puis lire les pour push les metadata
         const userData = await getContact(email);
+        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         //on met a jour le token pour etre sur qu'il a pas ete utiliser ailleur entre temps
         token = refreshToken(userDiscord.id, {expires_at: 0, refresh_token: userData.attributes.DISCORD_REFRESH_TOKEN})
         const list = transformList(userData.listIds);
