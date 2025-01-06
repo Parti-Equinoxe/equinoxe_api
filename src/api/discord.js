@@ -58,7 +58,6 @@ module.exports.refreshToken = async (userId, token) => {
                 password: process.env.DISCORD_CLIENT_SECRET
             }
         });
-        console.log(tokenResponse.data);
         return formatToken(tokenResponse.data);
     }
     return token;
