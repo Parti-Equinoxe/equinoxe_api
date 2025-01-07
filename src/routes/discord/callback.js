@@ -1,9 +1,9 @@
-const {transformList, getContact, isLinked} = require("../../api/brevo");
+const {transformList, getContact, isLinked, getContactFromId} = require("../../api/brevo");
 const {getOAuthTokens, getUserData, refreshToken, pushMetaData, saveToken} = require("../../api/discord");
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
-        const {state, email} = req.signedCookies; //TODO: amener l'email ici
+        const {state, brevoID} = req.signedCookies;
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur
         let token = await getOAuthTokens(req.query.code);
         const userDiscord = await getUserData(token);
@@ -13,7 +13,7 @@ module.exports = {
             console.log(r);
         }
         //puis lire les pour push les metadata
-        const userData = await getContact(email);
+        const userData = await getContactFromId(brevoID);
         if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         //on met a jour le token pour etre sur qu'il a pas ete utiliser ailleur entre temps
         token = refreshToken(userDiscord.id, {expires_at: 0, refresh_token: userData.attributes.DISCORD_REFRESH_TOKEN})
@@ -25,7 +25,7 @@ module.exports = {
         //const result = await pushMetaData(userDiscord.id, token, {adh: 1, symp: 0}); // test
         token = result.token;
         //met a jour le refresh token
-        await saveToken(userDiscord.id, email, token);
+        await saveToken(userDiscord.id, userData.email, token);
         return {message: "Connexion réussie"} //TODO: renvoyer vers une page indiquant que la connection est réussite
     }
 }
