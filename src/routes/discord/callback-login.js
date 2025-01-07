@@ -3,20 +3,20 @@ const {getOAuthTokens, getUserData, refreshToken, pushMetaData, saveToken} = req
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
-        const {state, brevoID} = req.signedCookies;
+        const {state, indentifier} = req.signedCookies;
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur
         let token = await getOAuthTokens(req.query.code);
         const userDiscord = await getUserData(token);
-        if (!(await isLinked(email, userDiscord.id))) {
+        const userData = await getContactFromId(indentifier);
+        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
+        if (!(await isLinked(userData.email, userDiscord.id))) {
             //ajout l'id discord et un refresh token
-            const r = await saveToken(userDiscord.id, email, token);
+            const r = await saveToken(userDiscord.id, userData.email, token);
             console.log(r);
         }
         //puis lire les pour push les metadata
-        const userData = await getContactFromId(brevoID);
-        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         //on met a jour le token pour etre sur qu'il a pas ete utiliser ailleur entre temps
-        token = refreshToken(userDiscord.id, {expires_at: 0, refresh_token: userData.attributes.DISCORD_REFRESH_TOKEN})
+        token = await refreshToken(userDiscord.id, {expires_at: 0, refresh_token: userData.attributes.DISCORD_REFRESH_TOKEN})
         const list = transformList(userData.listIds);
         const result = await pushMetaData(userDiscord.id, token, {
             adh: +(list.adherents ?? 0),
@@ -26,6 +26,6 @@ module.exports = {
         token = result.token;
         //met a jour le refresh token
         await saveToken(userDiscord.id, userData.email, token);
-        return {message: "Connexion réussie"} //TODO: renvoyer vers une page indiquant que la connection est réussite
+        return {message: "Connexion réussie"} //TODO: renvoyer vers une page indiquant que la connection est reussite
     }
 }
