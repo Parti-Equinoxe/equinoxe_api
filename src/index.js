@@ -5,9 +5,11 @@ const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
-app.use(cookieParser("testtesttest"));
+app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
 const tokens = ["aa"];
 let routes = [];
+
+// TODO: Stocker la dernier request si une erreur ce produit
 
 async function readDirRoutes(path) {
     return fs.readdir(path).then(items => {
