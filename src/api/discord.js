@@ -1,4 +1,4 @@
-const {post, get, put} = require("axios");
+const axios = require("axios");
 const {updateContact, getContact, getContactFromDiscord} = require("./brevo");
 
 const platformName = "Test Adh";
@@ -21,7 +21,7 @@ function formatToken(data) {
  * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
  */
 module.exports.getOAuthTokens = async (code) => {
-    const tokenResponse = await post("https://discord.com/api/v10/oauth2/token", {
+    const tokenResponse = await axios.post("https://discord.com/api/v10/oauth2/token", {
         grant_type: 'authorization_code',
         code: code,
         redirect_uri: process.env.REDIRECT_URI
@@ -46,7 +46,7 @@ module.exports.getOAuthTokens = async (code) => {
  */
 module.exports.refreshToken = async (userId, token) => {
     if (Date.now() > token.expires_at) {
-        const tokenResponse = await post("https://discord.com/api/v10/oauth2/token", {
+        const tokenResponse = await axios.post("https://discord.com/api/v10/oauth2/token", {
             grant_type: 'refresh_token',
             refresh_token: token.refresh_token,
         }, {
@@ -90,7 +90,7 @@ const urlMetaData = `https://discord.com/api/v10/users/@me/applications/${proces
  */
 module.exports.pushMetaData = async (userID, token, metadata) => {
     token = await this.refreshToken(userID, token);
-    const respond = await put(urlMetaData, {
+    const respond = await axios.put(urlMetaData, {
         platform_name: platformName,
         metadata
     }, {
@@ -108,13 +108,29 @@ module.exports.pushMetaData = async (userID, token, metadata) => {
  * @return {Promise<{data: Object, token: {access_token: string, refresh_token: string, expires_at: number}}>}
  */
 module.exports.getMetaData = async (userID, token) => {
+    //TODO: verif si sa marche
     token = await this.refreshToken(userID, token);
-    const respond = await get(urlMetaData, {
+    const respond = await axios.get(urlMetaData, {
         headers: {
             Authorization: `Bearer ${token.access_token}`,
         }
     });
-    return {data: respond.data, token: token};
+    return {data: respond.data};
+}
+
+/**
+ * Permet de supprimer les MetaData
+ * @param {string} userID
+ * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @return {Promise<Object>}
+ */
+module.exports.removeMetaData = async (userID, token) => {
+    token = await this.refreshToken(userID, token);
+    return await axios.delete(urlMetaData, {
+        headers: {
+            Authorization: `Bearer ${token.access_token}`,
+        }
+    });
 }
 
 /**
