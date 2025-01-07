@@ -3,6 +3,29 @@ const link = "https://api.brevo.com/v3/";
 const status = require("./lists_brevo.json");
 
 /**
+ * @typedef {{
+ *   email: string,
+ *   id: number,
+ *   emailBlacklisted: boolean,
+ *   smsBlacklisted: boolean,
+ *   createdAt: string,
+ *   modifiedAt: string,
+ *   attributes: {
+ *     PRENOM?: string,
+ *     SMS?: string,
+ *     VILLE?: string,
+ *     CODE_POSTAL?: string,
+ *     NOM?: string
+ *     GENDER?: string,
+ *     DISCORD_ID?: string,
+ *     DISCORD_REFRESH_TOKEN?: string
+ *   },
+ *   listIds: Array<number>,
+ *   statistics: Object
+ * }} Contact
+ */
+
+/**
  * Configuration de l'api brevo
  * @type {{headers: {"accept": "application/json", "api-key": string, "content-type": "application/json"}}}
  */
@@ -45,7 +68,7 @@ module.exports.put = async (path, data, parameters = []) => {
 /**
  * Permet de recupérer les informations d'un contact
  * @param {string} email
- * @return {Promise<Object>}
+ * @return {Promise<Contact>}
  */
 module.exports.getContact = async (email) => {
     return await this.get("contacts/" + email, [{label: "identifierType", value: "email_id"}]);
@@ -53,8 +76,17 @@ module.exports.getContact = async (email) => {
 
 /**
  * Permet de recupérer les informations d'un contact
+ * @param {string} id - l'ID brevo du contact
+ * @return {Promise<Contact>}
+ */
+module.exports.getContactFromId = async (id) => {
+    return await this.get("contacts/" + id, [{label: "identifierType", value: "contact_id"}]);
+}
+
+/**
+ * Permet de recupérer les informations d'un contact
  * @param {string} userID - l'id discord
- * @return {Promise<Object>}
+ * @return {Promise<Contact>}
  */
 module.exports.getContactFromDiscord = async (userID) => {
     const resp = (await this.get("contacts/", [{
@@ -68,7 +100,7 @@ module.exports.getContactFromDiscord = async (userID) => {
 /**
  * Permet de mettre a jour les informations d'un contact
  * @param {string} email
- * @param {string} data - les donnes a mettre a jours
+ * @param {Contact} data - les donnes a mettre a jours
  * @return {Promise<Object>}
  */
 module.exports.updateContact = async (email, data) => {

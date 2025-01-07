@@ -5,7 +5,32 @@ const mapping = require("./mapping.js");
 const {callFromString, setFromString} = require("./utils");
 const status = require("./lists_brevo.json");
 
-// TODO: Stocker la dernier request si une erreur ce produit
+/**
+ * @typedef {{
+ *       id: 130418611,
+ *       CreatedAt: string,
+ *       UpdatedAt: string,
+ *       firstname: string,
+ *       surname: string,
+ *       mail: string,
+ *       mobile: string,
+ *       address: {
+ *         id: number,
+ *         postalcode: string,
+ *         county: string,
+ *         country: string,
+ *         latitude: string,
+ *         longitude: string
+ *       },
+ *       action_ids: null | Array<number>,
+ *       group_id: 1818,
+ *       user_id: number,
+ *       tags:  Array<{ name: string, appearance_count: number }>,
+ *       formdatas: Array<Object>
+ *       nationbuilderid: number,
+ *       membership_member: null
+ *     }} Contact
+ */
 
 /**
  * Configuration de l'api qomon
@@ -107,7 +132,7 @@ module.exports.getID = async (email) => {
 /**
  * Permet de ajouter / mettre a jour un contact
  * @param {string} email - l'email du contact
- * @return {Promise<Object>}
+ * @return {Promise<Contact | {error: string, full?: Object}>}
  */
 module.exports.getContact = async (email) => {
     const userID = await this.getID(email);
