@@ -1,13 +1,14 @@
-const {transformList, getContact, isLinked, getContactFromId} = require("../../api/brevo");
+const {transformList, isLinked, getContactFromId} = require("../../api/brevo");
 const {getOAuthTokens, getUserData, refreshToken, pushMetaData, saveToken} = require("../../api/discord");
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
-        const {state, indentifier} = req.signedCookies;
+        const {state, identifier} = req.signedCookies;
+        console.log(identifier);
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur
         let token = await getOAuthTokens(req.query.code);
         const userDiscord = await getUserData(token);
-        const userData = await getContactFromId(indentifier);
+        const userData = await getContactFromId(identifier);
         if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         if (!(await isLinked(userData.email, userDiscord.id))) {
             //ajout l'id discord et un refresh token
