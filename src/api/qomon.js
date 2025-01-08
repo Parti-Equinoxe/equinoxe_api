@@ -192,7 +192,7 @@ module.exports.createContact = async (email) => {
     for (const field of mapping) {
         const val = callFromString(rawData, field.brevo);
         if (!val) continue;
-        data = setFromString(data, field.qomon, val);
+        data = setFromString(data, field.qomon, field.transform(val));
     }
     data.tags = [
         {
