@@ -24,7 +24,7 @@ module.exports.getOAuthTokens = async (code) => {
     const tokenResponse = await axios.post("https://discord.com/api/v10/oauth2/token", {
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: process.env.REDIRECT_URI
+        redirect_uri: "https://youri.cleboost.com/discord/callback-login"
     }, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -72,7 +72,7 @@ module.exports.refreshToken = async (userId, token) => {
 module.exports.getUserData = async (token) => {
     if (Date.now() > token.expires_at) return null;
     const url = "https://discord.com/api/v10/users/@me";
-    const response = await get(url, {
+    const response = await axios.get(url, {
         headers: {
             Authorization: `Bearer ${token.access_token}`,
         }
