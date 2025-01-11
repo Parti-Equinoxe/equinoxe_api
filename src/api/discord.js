@@ -18,6 +18,7 @@ function formatToken(data) {
 /**
  * Permet de recupere le token OAuth
  * @param {string} code
+ * @param redirectUrl
  * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
  */
 module.exports.getOAuthTokens = async (code, redirectUrl) => {
