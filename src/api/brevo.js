@@ -113,10 +113,8 @@ module.exports.updateContact = async (email, data) => {
  * @return {{adh: boolean, symp: boolean}}
  */
 module.exports.transformList = (listIds) => {
-    console.log(listIds)
     //const lists = listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id));
     return status.status.reduce((acc, current)=>{
-        console.log(current);
         acc[current.name] = listIds.includes(current.id_brevo);
         return acc;
     },{});
@@ -131,5 +129,5 @@ module.exports.transformList = (listIds) => {
 module.exports.isLinked = async (email, userID) => {
     const userData = await this.getContact(email);
     if (!userData) return false;
-    return userData.attributes.DISCORD_ID === userID;
+    return userData.attributes.DISCORD_ID ?? "" === userID;
 }
