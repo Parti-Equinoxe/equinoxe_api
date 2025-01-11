@@ -20,11 +20,11 @@ function formatToken(data) {
  * @param {string} code
  * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
  */
-module.exports.getOAuthTokens = async (code) => {
+module.exports.getOAuthTokens = async (code, redirectUrl) => {
     const tokenResponse = await axios.post("https://discord.com/api/v10/oauth2/token", {
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: "https://youri.cleboost.com/discord/callback-login"
+        redirect_uri: redirectUrl,
     }, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -85,11 +85,12 @@ const urlMetaData = `https://discord.com/api/v10/users/@me/applications/${proces
  * Permet de sauvegarder les MetaData
  * @param {string} userID
  * @param {{access_token: string, refresh_token: string, expires_at: number}} token
- * @param {Object} metadata
+ * @param {{adh: 0 | 1, symp: 0 | 1}} metadata
  * @return {Promise<{data: Object, token: {access_token: string, refresh_token: string, expires_at: number}}>}
  */
 module.exports.pushMetaData = async (userID, token, metadata) => {
     token = await this.refreshToken(userID, token);
+    console.log("refreshed");
     const respond = await axios.put(urlMetaData, {
         platform_name: platformName,
         metadata
@@ -105,7 +106,11 @@ module.exports.pushMetaData = async (userID, token, metadata) => {
  * Permet de recuperer les MetaData
  * @param {string} userID
  * @param {{access_token: string, refresh_token: string, expires_at: number}} token
- * @return {Promise<{data: Object, token: {access_token: string, refresh_token: string, expires_at: number}}>}
+ * @return {Promise<{data: {
+ *     platform_name: string,
+ *     platform_username: string,
+ *     metadata: { symp: '0' | '1', adh: '0' | '1' }
+ *   }, token: {access_token: string, refresh_token: string, expires_at: number}}>}
  */
 module.exports.getMetaData = async (userID, token) => {
     //TODO: verif si sa marche
@@ -115,7 +120,7 @@ module.exports.getMetaData = async (userID, token) => {
             Authorization: `Bearer ${token.access_token}`,
         }
     });
-    return {data: respond.data};
+    return {data: respond.data, token: token};
 }
 
 /**
@@ -125,12 +130,13 @@ module.exports.getMetaData = async (userID, token) => {
  * @return {Promise<Object>}
  */
 module.exports.removeMetaData = async (userID, token) => {
-    token = await this.refreshToken(userID, token);
-    return await axios.delete(urlMetaData, {
+    //token = await this.refreshToken(userID, token);
+    /*return await axios.delete(urlMetaData, {
         headers: {
             Authorization: `Bearer ${token.access_token}`,
         }
-    });
+    });*/
+    return await this.pushMetaData(userID, token, {adh: 0, symp: 0});
 }
 
 /**
@@ -142,6 +148,7 @@ module.exports.removeMetaData = async (userID, token) => {
  */
 module.exports.saveToken = async (userID, email, token) => {
     token = await this.refreshToken(userID, token);
+    console.log("saved");
     const resp = await updateContact(email, {
         attributes: {
             DISCORD_ID: userID,
@@ -160,11 +167,11 @@ module.exports.getToken = async (identifier) => {
     let resp;
     if (identifier.hasOwnProperty("email")) {
         resp = await getContact(identifier.email);
-        if (!(resp.attributes.DISCORD_ID)) return null;
+        if (!resp.attributes.DISCORD_ID) return null;
     }
     if (identifier.hasOwnProperty("userID")) {
         resp = await getContactFromDiscord(identifier.userID);
-        if (!resp) return null
+        if (!resp) return null;
     }
     return await this.refreshToken(resp.attributes.DISCORD_ID, {
         expires_at: 0,
