@@ -86,14 +86,13 @@ module.exports.getContactFromId = async (id) => {
 /**
  * Permet de recupérer les informations d'un contact
  * @param {string} userID - l'id discord
- * @return {Promise<Contact>}
+ * @return {Promise<Contact | undefined>}
  */
 module.exports.getContactFromDiscord = async (userID) => {
     const resp = (await this.get("contacts/", [{
         label: "filter",
         value: `equals(DISCORD_ID,"${userID}")`
     }])).data;
-    console.dir(resp, {death: null});
     return resp.find((c) => c.attributes.DISCORD_ID === userID);
 }
 
