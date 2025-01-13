@@ -1,11 +1,15 @@
 const express = require('express');
+const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
+app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
 const tokens = ["aa"];
 let routes = [];
+
+// TODO: Stocker la dernier request si une erreur ce produit
 
 async function readDirRoutes(path) {
     return fs.readdir(path).then(items => {
@@ -18,6 +22,7 @@ async function readDirRoutes(path) {
                 const route = require("./" + itemPath);
                 route.route = name;
                 route.method = route.method || "GET";
+                route.token = route.token || false;
                 route.exec = route.exec || function (req, res) {
                     return res.send("/!\\ No exec function defined for this route");
                 };
@@ -42,7 +47,7 @@ async function init() {
         app[route.method.toLowerCase()](route.route, async (req, res) => {
             const date = Date.now();
             let result = {};
-            if (!verifyToken(req.headers)) {
+            if (route.token && !verifyToken(req.headers)) {
                 console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip})`));
                 /*return res.status(401).send({
                     state: "Unauthorized",
@@ -56,8 +61,9 @@ async function init() {
             } catch (e) {
                 console.log(redBright(`>> erreur dans ${route.route}`));
                 console.log(e);
-                res.status(500).send({state: "Internal Server Error", error: e, status: 500});
+                if (!res.headersSent) res.status(500).send({state: "Internal Server Error", error: e, status: 500});
             }
+            if (res.headersSent) return;
             return res.status(result.error ? 400 : 200).send({
                 status: result.error ? 400 : 200,
                 state: result.error ? "Bad Request" : "OK",

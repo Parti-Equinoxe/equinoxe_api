@@ -3,9 +3,34 @@ const link = "https://incoming.qomon.app/";
 const brevo = require("./brevo.js");
 const mapping = require("./mapping.js");
 const {callFromString, setFromString} = require("./utils");
-const status = require("./status.json");
+const status = require("./lists_brevo.json");
 
-// TODO: Stocker la dernier request si une erreur ce produit
+/**
+ * @typedef {{
+ *       id: 130418611,
+ *       CreatedAt: string,
+ *       UpdatedAt: string,
+ *       firstname: string,
+ *       surname: string,
+ *       mail: string,
+ *       mobile: string,
+ *       address: {
+ *         id: number,
+ *         postalcode: string,
+ *         county: string,
+ *         country: string,
+ *         latitude: string,
+ *         longitude: string
+ *       },
+ *       action_ids: null | Array<number>,
+ *       group_id: 1818,
+ *       user_id: number,
+ *       tags:  Array<{ name: string, appearance_count: number }>,
+ *       formdatas: Array<Object>
+ *       nationbuilderid: number,
+ *       membership_member: null
+ *     }} Contact
+ */
 
 /**
  * Configuration de l'api qomon
@@ -33,9 +58,9 @@ function formatError(e) {
 }
 
 /**
- * Permet de faire une requete sur l'api qomon
- * @param {String} path - l'action à effectuer (voir doc qomon)
- * @param {Array<{label: String, value:String}>} parameters - les parametres eventuels
+ * Permet de faire une requete (GET) sur l'api qomon
+ * @param {string} path - l'action à effectuer (voir doc qomon)
+ * @param {Array<{label: string, value:string}>} parameters - les parametres eventuels
  * @return {Promise<Object>}
  */
 module.exports.get = async (path, parameters = []) => {
@@ -46,8 +71,8 @@ module.exports.get = async (path, parameters = []) => {
 }
 
 /**
- * Permet de faire une requete sur l'api qomon
- * @param {String} path - l'action à effectuer (voir doc qomon)
+ * Permet de faire une requete (POST) sur l'api qomon
+ * @param {string} path - l'action à effectuer (voir doc qomon)
  * @param {Object} data - les parametres eventuels
  * @return {Promise<Object>}
  */
@@ -60,8 +85,8 @@ module.exports.post = async (path, data = {}) => {
 }
 
 /**
- * Permet de faire une requete sur l'api qomon
- * @param {String} path - l'action à effectuer (voir doc qomon)
+ * Permet de faire une requete (PATH) sur l'api qomon
+ * @param {string} path - l'action à effectuer (voir doc qomon)
  * @param {Object} data - les parametres eventuels
  * @return {Promise<Object>}
  */
@@ -76,8 +101,8 @@ module.exports.patch = async (path, data = {}) => {
 
 /**
  * Permet de recuperer l'id d'un contact
- * @param {String} email - l'action à effectuer (voir doc qomon)
- * @return {Promise<String>} - l'id du contact / 0 si pas trouvé
+ * @param {string} email - l'action à effectuer (voir doc qomon)
+ * @return {Promise<string>} - l'id du contact / 0 si pas trouvé
  */
 module.exports.getID = async (email) => {
     const res = await this.post("search", {
@@ -106,8 +131,8 @@ module.exports.getID = async (email) => {
 
 /**
  * Permet de ajouter / mettre a jour un contact
- * @param {String} email - l'email du contact
- * @return {Promise<Object>}
+ * @param {string} email - l'email du contact
+ * @return {Promise<Contact | {error: string, full?: Object}>}
  */
 module.exports.getContact = async (email) => {
     const userID = await this.getID(email);
@@ -119,8 +144,8 @@ module.exports.getContact = async (email) => {
 
 const fieldDelete = ["CreatedAt", "UpdatedAt", "action_ids", "group_id", "user_id", "formdatas", "nationbuilderid", "membership_member"]
 /**
- * Permet de ajouter / mettre a jour un contact
- * @param {String} email - l'email du contact
+ * Permet mettre a jour un contact
+ * @param {string} email - l'email du contact
  * @param {Object} newData - les donne du contact à mettre à jour
  * @return {Promise<Object>}
  */
@@ -144,7 +169,7 @@ module.exports.updateContact = async (email, newData) => {
 
 /**
  * Permet de supprimer un contact
- * @param {String} email - l'email du contact
+ * @param {string} email - l'email du contact
  * @return {Promise<Object>}
  */
 module.exports.deleteContact = async (email) => {
@@ -154,8 +179,8 @@ module.exports.deleteContact = async (email) => {
 }
 
 /**
- * Permet de supprimer un contact
- * @param {String} email - l'email du contact
+ * Permet de creer un contact
+ * @param {string} email - l'email du contact
  * @return {Promise<Object>}
  */
 module.exports.createContact = async (email) => {
@@ -165,9 +190,17 @@ module.exports.createContact = async (email) => {
     console.dir(rawData, {depth: null});
     let data = {};
     for (const field of mapping) {
-        data = setFromString(data, field.qomon, callFromString(rawData, field.brevo));
-        //data[field.qomon] = callFromString(rawData, field.brevo);
+        const val = callFromString(rawData, field.brevo);
+        if (!val) continue;
+        data = setFromString(data, field.qomon, field.transform(val));
     }
+    data.tags = [
+        {
+            "name": "TEST",
+            "appearance_count": 0,
+            "color": "#ff0000"
+        }
+    ]
     if (!data.mail) data.mail = email;
     if (rawData.listIds) {
         data.status = rawData.listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id))
@@ -178,11 +211,12 @@ module.exports.createContact = async (email) => {
                 }
             });
     }
-
     console.dir(data, {depth: null});
-    return (await axios.post(`${link}contacts/upsert`,
+    /*return (await axios.post(`${link}contacts/upsert`,
             {kind: "contact", data: data},
             this.config
         ).catch(formatError)
-    ).data;
+    ).data;*/
+    //TODO: activer la creation de contact
+    return data;
 }

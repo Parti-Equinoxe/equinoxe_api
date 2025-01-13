@@ -1,8 +1,9 @@
 const mapping = require("../../../api/mapping.js");
 const qomon = require("../../../api/qomon");
-const {callFromString} = require("../../../api/utils");
+const {callFromString, setFromString} = require("../../../api/utils");
 const {redBright} = require("cli-color");
 module.exports = {
+    token: true,
     method: "POST",
     /**
      * @param {Request} req
@@ -19,13 +20,14 @@ module.exports = {
             const fiels = mapping.filter((key) => callFromString(atr, key.brevo));
             let newData = {};
             for (const field of fiels) {
-                newData[field.qomon] = callFromString(atr, field.brevo);
+                //transforme les donnees de brevo en qomon
+                newData = setFromString(newData, field.qomon, callFromString(atr, field.brevo));
             }
             const r = await qomon.updateContact(atr.email, newData);
             if (r.error === "Contact not found") {
                 console.log(atr.email);
-                //const rc = await qomon.createContact(atr.email);
-                //if (rc.error) console.log(redBright(`Error creating contact ${atr.email}: ${JSON.stringify(rc)}`));
+                const rc = await qomon.createContact(atr.email);
+                if (rc.error) console.log(redBright(`Error creating contact ${atr.email}: ${JSON.stringify(rc)}`));
             } else if (r.error) console.log(redBright(`Error updating contact ${atr.email}: ${JSON.stringify(r)}`));
             done = true;
         }
