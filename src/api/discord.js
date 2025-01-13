@@ -4,8 +4,12 @@ const {updateContact, getContact, getContactFromDiscord} = require("./brevo");
 const platformName = "Test Adh";
 
 /**
+ * @typedef {{access_token: string, refresh_token: string, expires_at: number}} Token
+ */
+
+/**
  * Permet de formater le token a partir de la reponse discord
- * @return {{access_token: string, refresh_token: string, expires_at: number}}
+ * @return {Token}
  */
 function formatToken(data) {
     return {
@@ -19,7 +23,7 @@ function formatToken(data) {
  * Permet de recupere le token OAuth
  * @param {string} code
  * @param redirectUrl
- * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
+ * @return {Promise<Token>}
  */
 module.exports.getOAuthTokens = async (code, redirectUrl) => {
     const tokenResponse = await axios.post("https://discord.com/api/v10/oauth2/token", {
@@ -42,8 +46,8 @@ module.exports.getOAuthTokens = async (code, redirectUrl) => {
 /**
  * Permet de refresh le token (si besoin)
  * @param {string} userId
- * @param {{access_token: string, refresh_token: string, expires_at: number}} token
- * @return {Promise<{access_token: string, refresh_token: string, expires_at: number}>}
+ * @param {} token
+ * @return {Promise<Token>}
  */
 module.exports.refreshToken = async (userId, token) => {
     if (Date.now() > token.expires_at) {
@@ -67,7 +71,7 @@ module.exports.refreshToken = async (userId, token) => {
 /**
  * Permet de recuperer les informations d'un compte discord
  * Attention ne refresh pas le token
- * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @param {Token} token
  * @return {Promise<Object | null>} - null = token plus valide
  */
 module.exports.getUserData = async (token) => {
@@ -85,9 +89,9 @@ const urlMetaData = `https://discord.com/api/v10/users/@me/applications/${proces
 /**
  * Permet de sauvegarder les MetaData
  * @param {string} userID
- * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @param {Token} token
  * @param {{adh: 0 | 1, symp: 0 | 1}} metadata
- * @return {Promise<{data: Object, token: {access_token: string, refresh_token: string, expires_at: number}}>}
+ * @return {Promise<{data: Object, token: Token}>}
  */
 module.exports.pushMetaData = async (userID, token, metadata) => {
     token = await this.refreshToken(userID, token);
@@ -106,12 +110,12 @@ module.exports.pushMetaData = async (userID, token, metadata) => {
 /**
  * Permet de recuperer les MetaData
  * @param {string} userID
- * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @param {Token} token
  * @return {Promise<{data: {
  *     platform_name: string,
  *     platform_username: string,
  *     metadata: { symp: '0' | '1', adh: '0' | '1' }
- *   }, token: {access_token: string, refresh_token: string, expires_at: number}}>}
+ *   }, token: Token}>}
  */
 module.exports.getMetaData = async (userID, token) => {
     //TODO: verif si sa marche
@@ -127,7 +131,7 @@ module.exports.getMetaData = async (userID, token) => {
 /**
  * Permet de supprimer les MetaData
  * @param {string} userID
- * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @param {Token} token
  * @return {Promise<Object>}
  */
 module.exports.removeMetaData = async (userID, token) => {
@@ -144,7 +148,7 @@ module.exports.removeMetaData = async (userID, token) => {
  * Permet de sauvegarder le refresh token sur brevo
  * @param {string} userID - le userID sera mit a jour au passage
  * @param {string} email
- * @param {{access_token: string, refresh_token: string, expires_at: number}} token
+ * @param {Token} token
  * @return {Promise<Object>}
  */
 module.exports.saveToken = async (userID, email, token) => {
@@ -162,7 +166,7 @@ module.exports.saveToken = async (userID, email, token) => {
 /**
  * Permet de récupérer le refresh token depuis brevo
  * @param {{userID: string} | {email: string}} identifier
- * @return {Promise<null | {access_token: string, refresh_token: string, expires_at: number}>}
+ * @return {Promise<null | Token>}
  */
 module.exports.getToken = async (identifier) => {
     let resp;
