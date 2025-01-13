@@ -1,0 +1,18 @@
+FROM node:20-bookworm-slim
+LABEL authors="equinoxe"
+## Pour forcer le pétage du cache, a faire de temps a autre
+ARG CACHEBUST=2912024
+
+RUN apt-get -y update && apt-get dist-upgrade -y &&\
+    apt-get -y install git build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev &&\
+    rm -rf /var/lib/apt/lists/* &&\
+    useradd -m debian && mkdir /equinoxe && chown debian:debian /equinoxe -R
+
+
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+VOLUME /equinoxe/bdd
+USER debian
+RUN git clone https://github.com/Parti-Equinoxe/equinoxe_api /equinoxe/api && cd /equinoxe/api/src && npm install
+WORKDIR /equinoxe/api
+ENTRYPOINT ["/docker-entrypoint.sh"]
