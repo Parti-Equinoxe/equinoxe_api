@@ -12,7 +12,7 @@ module.exports = {
         if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         if (userData.attributes.DISCORD_ID && userData.attributes.DISCORD_ID !== userDiscord.id) {
             //TODO: renvoyer vers une page d'erreur
-            return {error: "Contact already linked to another Discord account"}
+            return {error: "Contact already linked to another Discord account"};
         }
         /*if (!(await isLinked(userData.email, userDiscord.id))) {
             //ajout l'id discord et un refresh token
