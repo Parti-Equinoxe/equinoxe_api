@@ -1,3 +1,8 @@
+/**
+ * Module avec quelque fonctions
+ * @module
+ */
+
 function _callFromString(object, path) {
     const keys = path.split(".");
     let val = object;
