@@ -1,13 +1,13 @@
-const {transformList, isLinked, getContactFromId} = require("../../api/brevo");
+const {transformList, isLinked, getContactFromId, getContactFromDiscord} = require("../../api/brevo");
 const {getOAuthTokens, getUserData, refreshToken, pushMetaData, saveToken} = require("../../api/discord");
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
         const {state, identifier} = req.signedCookies;
-        console.log(identifier);
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur
         let token = await getOAuthTokens(req.query.code, "https://youri.cleboost.com/discord/callback-login");
         const userDiscord = await getUserData(token);
+        if ((await getContactFromDiscord(userDiscord.id))) return {message: "This Discord account is already linked to another contact"};
         const userData = await getContactFromId(identifier);
         if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         if (userData.attributes.DISCORD_ID && userData.attributes.DISCORD_ID !== userDiscord.id) {
