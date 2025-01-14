@@ -1,3 +1,7 @@
+/**
+ * Module pour communiquer avec l'api discord
+ * @module discord
+ */
 const axios = require("axios");
 const {updateContact, getContact, getContactFromDiscord} = require("./brevo");
 

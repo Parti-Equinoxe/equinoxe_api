@@ -1,3 +1,7 @@
+/**
+ * Module pour communiquer avec l'api qomon
+ * @module qomon
+ */
 const axios = require("axios");
 const link = "https://incoming.qomon.app/";
 const brevo = require("./brevo.js");

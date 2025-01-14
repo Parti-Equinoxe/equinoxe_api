@@ -1,3 +1,7 @@
+/**
+ * Module pour communiquer avec l'api brevo
+ * @module brevo
+ */
 const axios = require("axios");
 const link = "https://api.brevo.com/v3/";
 const status = require("./lists_brevo.json");
