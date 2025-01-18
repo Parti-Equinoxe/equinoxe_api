@@ -16,11 +16,8 @@ module.exports = {
         let count = 0;
         //const list_ids = data.list_id.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id));
         for (const email of (data.emails ?? [data.email])) {
-            console.log(email);
             //DISCORD
             let token = await getToken({email: email});
-            console.log(token);
-            console.log(!token);
             if (!token) continue;
             const userData = await getContact(email);
             console.log(userData);

@@ -5,7 +5,7 @@ module.exports = {
     exec: async (req, res) => {
         //TODO: tester si sa marche
         const {state, identifier} = req.signedCookies;
-        if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur
+        if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur ?
         const userData = await getContactFromId(identifier);
         if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
         let token = await getOAuthTokens(req.query.code,"https://youri.cleboost.com/discord/callback-unlogin");
@@ -19,7 +19,7 @@ module.exports = {
                 DISCORD_REFRESH_TOKEN: ""
             }
         });
-        if (resBrevo.error) return {error: resBrevo.error, full: resBrevo} //TODO: renvoyer vers une page d'erreur
+        if (resBrevo.error) return {error: resBrevo.error, full: resBrevo} //TODO: renvoyer vers une page d'erreur ?
         return {message: "Déconnexion réussie"} //TODO: renvoyer vers une page indiquant que la deconnection est reussite
     }
 }

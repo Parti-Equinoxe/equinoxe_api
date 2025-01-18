@@ -2,11 +2,10 @@ const {removeMetaData, getToken} = require("../../api/discord");
 const {getContactFromId, updateContact, isLinked} = require("../../api/brevo");
 module.exports = {
     method: "GET",
-    token: true,
     exec: async (req, res) => {
-        if (!req.query.identifier) return {error: "No identifier provided."}; //TODO: page d'erreur
+        if (!req.query.identifier) return {error: "No identifier provided."}; //TODO: page d'erreur ?
         const userData = await getContactFromId(req.query.identifier);
-        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
+        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur ?
         if (!(await isLinked(userData.email, userData.attributes.DISCORD_ID))) return {message: "No Discord account linked"};
         return res.redirect("/discord/unlogin-from-discord?identifier=" + req.query.identifier);
         /*const token = await getToken({email: userData.email});
