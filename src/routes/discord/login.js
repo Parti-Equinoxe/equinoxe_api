@@ -3,7 +3,6 @@ const redirectURL = "https://youri.cleboost.com/discord/callback-login";
 //TODO: code pour exporter les adh actuels
 module.exports = {
     method: "GET",
-    token: true,
     exec: async (req, res) => {
         if (!req.query.identifier) return {error: "No identifier provided."}; //TODO: page d'erreur
         const identifier = req.query.identifier;
@@ -14,7 +13,6 @@ module.exports = {
         res.cookie("state", state, {maxAge: 1000 * 60 * 5, signed: true});
         //id brevo
         res.cookie("identifier", identifier, {maxAge: 1000 * 60 * 5, signed: true}); //TODO: est t il possible faire de plus securise ?
-        res.redirect(authUrl);
-        return {message: "Redirection vers Discord"};
+        return res.redirect(authUrl);
     }
 }
