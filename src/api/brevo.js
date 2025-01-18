@@ -97,6 +97,7 @@ module.exports.getContactFromDiscord = async (userID) => {
         label: "filter",
         value: `equals(DISCORD_ID,"${userID}")`
     }])).data;
+    if (!resp || resp.length === 0) return undefined;
     return resp.find((c) => c.attributes.DISCORD_ID === userID);
 }
 
