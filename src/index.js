@@ -61,13 +61,13 @@ async function init() {
                 result = await route.exec(req, res);
             } catch (e) {
                 const dateError = new Date(date);
-                console.log(redBright(`>> erreur dans ${route.route} à ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} - ${dateError.getHours()}:${dateError.getMinutes()}`));
+                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
                 console.log(e);
                 if (!res.headersSent) res.status(500).send({state: "Internal Server Error", error: e, status: 500});
             }
             if (result.error) {
                 const dateError = new Date(date);
-                console.log(redBright(`>> erreur dans ${route.route} à ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} - ${dateError.getHours()}:${dateError.getMinutes()}`));
+                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
                 console.log(result.error);
             }
             if (result.redirect) return res.redirect(result.redirect);
