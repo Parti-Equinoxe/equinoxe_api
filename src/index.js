@@ -20,6 +20,7 @@ async function readDirRoutes(path) {
                 if (!itemPath.endsWith(".js")) return;
                 const name = itemPath.replace("routes", "").replace(".js", "").replace("index", "");
                 const route = require("./" + itemPath);
+                if (route.disabled) return;
                 route.route = name;
                 route.method = route.method || "GET";
                 route.token = route.token || false;
@@ -59,10 +60,17 @@ async function init() {
             try {
                 result = await route.exec(req, res);
             } catch (e) {
-                console.log(redBright(`>> erreur dans ${route.route}`));
+                const dateError = Date.now();
+                console.log(redBright(`>> erreur dans ${route.route} à ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} - ${dateError.getHours()}:${dateError.getMinutes()}`));
                 console.log(e);
                 if (!res.headersSent) res.status(500).send({state: "Internal Server Error", error: e, status: 500});
             }
+            if (result.error) {
+                const dateError = Date.now();
+                console.log(redBright(`>> erreur dans ${route.route} à ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} - ${dateError.getHours()}:${dateError.getMinutes()}`));
+                console.log(result.error);
+            }
+            if (result.redirect) return res.redirect(result.redirect);
             if (res.headersSent) return;
             return res.status(result.error ? 400 : 200).send({
                 status: result.error ? 400 : 200,
