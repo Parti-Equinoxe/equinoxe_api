@@ -8,7 +8,7 @@ module.exports = {
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur ?
         const userData = await getContactFromId(identifier);
         if (userData.error) return userData //TODO: renvoyer vers une page d'erreur
-        let token = await getOAuthTokens(req.query.code,"https://youri.cleboost.com/discord/callback-unlogin");
+        let token = await getOAuthTokens(req.query.code,`${process.env.REDIRECT_URL}/discord/callback-unlogin`);
         const userDiscord = await getUserData(token);
         if (!(await isLinked(userData.email, userDiscord.id))) return {message: "This discord account is not linked to this contact"}
         const result = await removeMetaData(userDiscord.id, token);

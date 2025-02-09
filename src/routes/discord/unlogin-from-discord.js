@@ -1,4 +1,4 @@
-const redirectURL = "https://youri.cleboost.com/discord/callback-unlogin";
+const redirectURL = `${process.env.REDIRECT_URL}/discord/callback-unlogin`;
 
 module.exports = {
     method: "GET",

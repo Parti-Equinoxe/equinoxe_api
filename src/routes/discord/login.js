@@ -1,5 +1,5 @@
 const {getContactFromId} = require("../../api/brevo");
-const redirectURL = "https://youri.cleboost.com/discord/callback-login";
+const redirectURL = `${process.env.REDIRECT_URL}/discord/callback-login`;
 //TODO: code pour exporter les adh actuels
 module.exports = {
     method: "GET",
