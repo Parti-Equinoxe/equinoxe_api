@@ -5,7 +5,7 @@ module.exports = {
     exec: async (req, res) => {
         const {state, identifier} = req.signedCookies;
         if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur ?
-        let token = await getOAuthTokens(req.query.code, "https://youri.cleboost.com/discord/callback-login");
+        let token = await getOAuthTokens(req.query.code, `${process.env.REDIRECT_URL}/discord/callback-login`);
         const userDiscord = await getUserData(token);
         //if ((await getContactFromDiscord(userDiscord.id))) return {message: "This Discord account is already linked to a contact"};
         const userData = await getContactFromId(identifier);
@@ -31,7 +31,7 @@ module.exports = {
         token = result.token;
         //met a jour le refresh token
         await saveToken(userDiscord.id, userData.email, token);
-        //return {message: "Connexion réussie"} //TODO: renvoyer vers une page indiquant que la connection est reussite
+        //Redirgie vers discord
         return res.redirect(`https://discord.gg/${process.env.DISCORD_INVITE_CODE}`);
     }
 }
