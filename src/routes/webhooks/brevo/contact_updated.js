@@ -5,6 +5,7 @@ const {redBright} = require("cli-color");
 module.exports = {
     token: true,
     method: "POST",
+    disable: true,
     /**
      * @param {Request} req
      * @param {Response} res
