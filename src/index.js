@@ -2,6 +2,8 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
+const version = "1.0.0";
+
 require("dotenv").config();
 const app = express();
 app.use(express.json());
@@ -42,6 +44,7 @@ function verifyToken(headers) {
 }
 
 async function init() {
+    console.log(blue.bold("Starting server... (v" + version + ")"));
     console.log(blue.bold("Loading routes:"));
     await readDirRoutes("routes");
     for (const route of routes) {
