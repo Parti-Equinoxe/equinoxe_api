@@ -2,7 +2,6 @@ const redirectURL = `${process.env.REDIRECT_URL}/discord/callback-unlogin`;
 
 module.exports = {
     method: "GET",
-    token: true,
     exec: (req, res) => {
         if (!req.query.identifier) return {
             error: "No identifier provided.",
