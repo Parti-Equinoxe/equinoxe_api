@@ -2,11 +2,13 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
+const version = "1.0.0";
+
 require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
-const tokens = ["aa"];
+const tokens = ["ugveniegveiy"];
 let routes = [];
 
 // TODO: Stocker la dernier request si une erreur ce produit
@@ -20,6 +22,7 @@ async function readDirRoutes(path) {
                 if (!itemPath.endsWith(".js")) return;
                 const name = itemPath.replace("routes", "").replace(".js", "").replace("index", "");
                 const route = require("./" + itemPath);
+                if (route.disable) return;
                 route.route = name;
                 route.method = route.method || "GET";
                 route.token = route.token || false;
@@ -41,6 +44,7 @@ function verifyToken(headers) {
 }
 
 async function init() {
+    console.log(blue.bold("Starting server... (v" + version + ")"));
     console.log(blue.bold("Loading routes:"));
     await readDirRoutes("routes");
     for (const route of routes) {
@@ -49,20 +53,27 @@ async function init() {
             let result = {};
             if (route.token && !verifyToken(req.headers)) {
                 console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip})`));
-                /*return res.status(401).send({
+                return res.status(401).send({
                     state: "Unauthorized",
                     status: 401,
                     message: "You need to add authorization: Bearer <token> in the header.",
                     temps: Date.now() - date,
-                });*/
+                });
             }
             try {
                 result = await route.exec(req, res);
             } catch (e) {
-                console.log(redBright(`>> erreur dans ${route.route}`));
+                const dateError = new Date(date);
+                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
                 console.log(e);
                 if (!res.headersSent) res.status(500).send({state: "Internal Server Error", error: e, status: 500});
             }
+            if (result.error) {
+                const dateError = new Date(date);
+                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
+                console.log(result.error);
+            }
+            if (result.redirect) return res.redirect(result.redirect);
             if (res.headersSent) return;
             return res.status(result.error ? 400 : 200).send({
                 status: result.error ? 400 : 200,

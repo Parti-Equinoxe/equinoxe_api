@@ -1,12 +1,17 @@
-const {removeMetaData, getToken} = require("../../api/discord");
-const {getContactFromId, updateContact, isLinked} = require("../../api/brevo");
+const {getContactFromId, isLinked} = require("../../api/brevo");
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
-        if (!req.query.identifier) return {error: "No identifier provided."}; //TODO: page d'erreur ?
+        if (!req.query.identifier) return {
+            error: "No identifier provided.",
+            redirect: "https://membres.parti-equinoxe.fr/erreur-est-survenue/"
+        };
         const userData = await getContactFromId(req.query.identifier);
-        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur ?
-        if (!(await isLinked(userData.email, userData.attributes.DISCORD_ID))) return {message: "No Discord account linked"};
+        if (userData.error) return {...userData, redirect: "https://membres.parti-equinoxe.fr/erreur-est-survenue/"};
+        if (!(await isLinked(userData.email, userData.attributes.DISCORD_ID))) return {
+            message: "No Discord account linked",
+            redirect: "https://membres.parti-equinoxe.fr/pas-de-compte-discord-lie/"
+        };
         return res.redirect("/discord/unlogin-from-discord?identifier=" + req.query.identifier);
         /*const token = await getToken({email: userData.email});
         if (!token) return {message: "No Discord account linked"};
