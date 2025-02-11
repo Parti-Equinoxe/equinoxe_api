@@ -4,15 +4,20 @@ module.exports = {
     method: "GET",
     exec: async (req, res) => {
         const {state, identifier} = req.signedCookies;
-        if (state !== req.query.state) return {error: "Invalid Request"}; //TODO: renvoyer vers une page d'erreur ?
+        if (state !== req.query.state) return {
+            error: "Invalid Request",
+            redirect: "https://membres.parti-equinoxe.fr/erreur-est-survenue/"
+        };
         let token = await getOAuthTokens(req.query.code, `${process.env.REDIRECT_URL}/discord/callback-login`);
         const userDiscord = await getUserData(token);
         //if ((await getContactFromDiscord(userDiscord.id))) return {message: "This Discord account is already linked to a contact"};
         const userData = await getContactFromId(identifier);
-        if (userData.error) return userData //TODO: renvoyer vers une page d'erreur ?
+        if (userData.error) return {...userData, redirect: "https://membres.parti-equinoxe.fr/erreur-est-survenue/"};
         if (userData.attributes.DISCORD_ID && userData.attributes.DISCORD_ID !== userDiscord.id) {
-            //TODO: renvoyer vers une page d'erreur
-            return {message: "Contact already linked to another Discord account"};
+            return {
+                message: "Contact already linked to another Discord account",
+                redirect: "https://membres.parti-equinoxe.fr/compte-discord-deja-lie/"
+            };
         }
         /*if (!(await isLinked(userData.email, userDiscord.id))) {
             //ajout l'id discord et un refresh token
