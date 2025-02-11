@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
-const tokens = ["aa"];
+const tokens = ["ugveniegveiy"];
 let routes = [];
 
 // TODO: Stocker la dernier request si une erreur ce produit
@@ -50,12 +50,12 @@ async function init() {
             let result = {};
             if (route.token && !verifyToken(req.headers)) {
                 console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip})`));
-                /*return res.status(401).send({
+                return res.status(401).send({
                     state: "Unauthorized",
                     status: 401,
                     message: "You need to add authorization: Bearer <token> in the header.",
                     temps: Date.now() - date,
-                });*/
+                });
             }
             try {
                 result = await route.exec(req, res);
