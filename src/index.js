@@ -1,8 +1,10 @@
 const express = require('express');
 const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
-const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
-const version = "1.0.0";
+const { blue, magenta, blackBright, underline, redBright } = require("cli-color");
+
+// Utilisation de la version définit dans le package.json pour que ça soit automatique
+const version = process.env.npm_package_version;
 
 require("dotenv").config();
 const app = express();
@@ -66,7 +68,7 @@ async function init() {
                 const dateError = new Date(date);
                 console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
                 console.log(e);
-                if (!res.headersSent) res.status(500).send({state: "Internal Server Error", error: e, status: 500});
+                if (!res.headersSent) res.status(500).send({ state: "Internal Server Error", error: e, status: 500 });
             }
             if (result.error) {
                 const dateError = new Date(date);
