@@ -27,18 +27,21 @@ Les commits sur ce paquet doivent utiliser la méthode de commit conventionnel p
 Les principes basique :
 - Feat
   - Permet de spécifié une nouvelle fonctionnalité développé
+  - Update du numéro de version de "1.0.0" > "1.1.0"
   - Exemple de commit :
     - Basique : "feat: ma nouvelle fonctionnalité"
     - Groupé : "feat(webhook) : mise en place des webhooks"
 
 - Fix
   - Permet de spécifié un correctif
+  - Update du numéro de version de "1.0.0" > "1.0.1"
   - Exemple de commit :
     - Basique : "fix: correction de tel problème"
     - Groupé : "fix(webhook) : correction du webhook sur ..."
 
 - Chore
   - Permet de commit sur des fichiers de "corvée", comme le readme, changelog, package-lock
+  - Pas d'update du numéro de version "1.0.0" > "1.0.0"
   - Exemple de commit :
     - Basique : "chore: modification du readme"
     - Groupé : "chore(readme) : maj du readme"
