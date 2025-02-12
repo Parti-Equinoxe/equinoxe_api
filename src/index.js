@@ -46,7 +46,7 @@ function verifyToken(headers) {
 }
 
 async function init() {
-    console.log(blue.bold("Starting server... (v" + version + ")"));
+    console.log(blue.bold(`Starting server... (v${version})`));
     console.log(blue.bold("Loading routes:"));
     await readDirRoutes("routes");
     for (const route of routes) {
