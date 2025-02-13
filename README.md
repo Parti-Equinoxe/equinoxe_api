@@ -5,10 +5,14 @@
 
 [a remplir]
 
+Copier / coller le fichier ".env.sample"
+et se rapprocher des personnes permettant de vous aider à remplir le ".env"
+
 ```bash
 cd src
 npm ci # au lieux de npm i voir : https://stackoverflow.com/questions/48524417/should-the-package-lock-json-file-be-added-to-gitignore
 ```
+
 
 ## Utilisation du projet 
 
@@ -16,9 +20,15 @@ npm ci # au lieux de npm i voir : https://stackoverflow.com/questions/48524417/s
 
 ```bash
 cd src
-npm run start # [a remplir]
-npm run dev # [a remplir]
-npm run test # [a remplir]
+
+# [a remplir]
+npm run start
+
+# [a remplir]
+npm run dev
+
+# [a remplir]
+npm run test
 ```
 
 ## Conventionnal commit
@@ -31,13 +41,15 @@ Les principes basique :
   - Exemple de commit :
     - Basique : "feat: ma nouvelle fonctionnalité"
     - Groupé : "feat(webhook) : mise en place des webhooks"
+    - Groupé : "feat(webhook) : creation de tel webhook ..."
 
 - Fix
   - Permet de spécifié un correctif
   - Update du numéro de version de "1.0.0" > "1.0.1"
   - Exemple de commit :
     - Basique : "fix: correction de tel problème"
-    - Groupé : "fix(webhook) : correction du webhook sur ..."
+    - Groupé : "fix(webhook) : correction du webhook A"
+    - Groupé : "fix(webhook) : correction du webhook B"
 
 - Chore
   - Permet de commit sur des fichiers de "corvée", comme le readme, changelog, package-lock
