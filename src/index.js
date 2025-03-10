@@ -73,7 +73,8 @@ async function init() {
             if (!result || result.error) {
                 const dateError = new Date(date);
                 console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
-                console.log(result.error ?? "Something strange happened.");
+                if (!result) console.log("Something went wrong");
+                else console.log(result.error);
             }
             if (result.redirect) return res.redirect(result.redirect);
             if (res.headersSent) return;
