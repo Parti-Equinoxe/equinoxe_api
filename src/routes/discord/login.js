@@ -19,6 +19,6 @@ module.exports = {
         res.cookie("state", state, {maxAge: 1000 * 60 * 5, signed: true});
         //id brevo
         res.cookie("identifier", identifier, {maxAge: 1000 * 60 * 5, signed: true}); //TODO: est t il possible faire de plus securise ?
-        return res.redirect(authUrl);
+        return {message: "Redirection...", redirect: authUrl}
     }
 }
