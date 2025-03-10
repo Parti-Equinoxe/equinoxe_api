@@ -70,10 +70,10 @@ async function init() {
                 console.log(e);
                 if (!res.headersSent) res.status(500).send({ state: "Internal Server Error", error: e, status: 500 });
             }
-            if (result.error) {
+            if (!result || result.error) {
                 const dateError = new Date(date);
                 console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
-                console.log(result.error);
+                console.log(result.error ?? "Something strange happened.");
             }
             if (result.redirect) return res.redirect(result.redirect);
             if (res.headersSent) return;

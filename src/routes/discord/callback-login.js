@@ -37,6 +37,6 @@ module.exports = {
         //met a jour le refresh token
         await saveToken(userDiscord.id, userData.email, token);
         //Redirgie vers discord
-        return res.redirect(`https://discord.gg/${process.env.DISCORD_INVITE_CODE}`);
+        return {message: "Redirection vers Discord", redirect: `https://discord.gg/${process.env.DISCORD_INVITE_CODE}`};
     }
 }

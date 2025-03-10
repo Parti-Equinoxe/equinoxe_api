@@ -12,7 +12,7 @@ module.exports = {
             message: "No Discord account linked",
             redirect: "https://membres.parti-equinoxe.fr/pas-de-compte-discord-lie/"
         };
-        return res.redirect("/discord/unlogin-from-discord?identifier=" + req.query.identifier);
+        return {message: "Redirection...", redirect: "/discord/unlogin-from-discord?identifier=" + req.query.identifier};
         /*const token = await getToken({email: userData.email});
         if (!token) return {message: "No Discord account linked"};
         const result = await removeMetaData(userData.attributes.DISCORD_ID, token);
