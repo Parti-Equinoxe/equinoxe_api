@@ -4,7 +4,8 @@ const fs = require("fs").promises;
 const { blue, magenta, blackBright, underline, redBright } = require("cli-color");
 
 // Utilisation de la version définit dans le package.json pour que ça soit automatique
-const version = process.env.npm_package_version;
+const version = require("./package.json").version;
+process.env.npm_package_version = version;
 
 require("dotenv").config();
 const app = express();
@@ -46,7 +47,8 @@ function verifyToken(headers) {
 }
 
 async function init() {
-    console.log(blue.bold(`Starting server... (v${version})`));
+    const date = new Date();
+    console.log(blue.bold(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}h${date.getMinutes()} > Starting server... (v${version})`));
     console.log(blue.bold("Loading routes:"));
     await readDirRoutes("routes");
     for (const route of routes) {
@@ -66,13 +68,13 @@ async function init() {
                 result = await route.exec(req, res);
             } catch (e) {
                 const dateError = new Date(date);
-                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
+                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}h${dateError.getMinutes()}`));
                 console.log(e);
                 if (!res.headersSent) res.status(500).send({ state: "Internal Server Error", error: e, status: 500 });
             }
             if (!result || result.error) {
                 const dateError = new Date(date);
-                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}:${dateError.getMinutes()}`));
+                console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}h${dateError.getMinutes()}`));
                 if (!result) console.log("Something went wrong");
                 else console.log(result.error);
             }
@@ -90,6 +92,6 @@ async function init() {
 
 init().then(() => {
     app.listen(process.env.PORT, async () => {
-        console.log(blackBright.bold(`Server is start on ` + underline(`localhost:${process.env.PORT}`)));
+        console.log(blackBright.bold(`Server is start on port ` + underline(`${process.env.PORT}`)));
     });
 });
