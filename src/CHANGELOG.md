@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.3](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.2.2...v1.2.3) (2025-03-11)
+
+
+### Bug Fixes
+
+* crash res.redirect ([b917e24](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b917e24ecbf408083099ef9a94dd6a3e1b56ba06))
+* supprimer des log inutiles ([b445298](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b4452989391e709c6696e14b6417d3907e27a8c4))
+* unlogin bloqué par un return ([b9a9dd8](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b9a9dd83f0503fb32a03982de89abd72aaa9f43a))
+
 ## [1.2.2](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.2.1...v1.2.2) (2025-03-10)
 
 
