@@ -99,7 +99,6 @@ const urlMetaData = `https://discord.com/api/v10/users/@me/applications/${proces
  */
 module.exports.pushMetaData = async (userID, token, metadata) => {
     token = await this.refreshToken(userID, token);
-    console.log("refreshed");
     const respond = await axios.put(urlMetaData, {
         platform_name: platformName,
         metadata
@@ -157,7 +156,6 @@ module.exports.removeMetaData = async (userID, token) => {
  */
 module.exports.saveToken = async (userID, email, token) => {
     token = await this.refreshToken(userID, token);
-    console.log("saved");
     const resp = await updateContact(email, {
         attributes: {
             DISCORD_ID: userID,
