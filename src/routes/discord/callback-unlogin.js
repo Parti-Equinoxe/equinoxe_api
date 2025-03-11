@@ -12,8 +12,7 @@ module.exports = {
         if (userData.error) return {...userData, redirect: "https://membres.parti-equinoxe.fr/erreur-est-survenue/"};
         let token = await getOAuthTokens(req.query.code, `${process.env.REDIRECT_URL}/discord/callback-unlogin`);
         const userDiscord = await getUserData(token);
-        if (!(await isLinked(userData.email, userDiscord.id))) return
-        return {
+        if (!(await isLinked(userData.email, userDiscord.id))) return {
             message: "This discord account is not linked to this contact",
             redirect: "https://membres.parti-equinoxe.fr/ce-compte-discord-nest-pas-lie-a-ce-contact/"
         };
