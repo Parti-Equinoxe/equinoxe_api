@@ -1,7 +1,7 @@
 const axios = require("axios");
 const urlWebhookMail = "https://discord.com/api/webhooks/1334093029232873473/OnyH_BQ9eM4RTM5lR0KMmcNWr11PKSkFg9gOjsbBkrZwXcjgOpec0GG3LX0hVqcr_TE8";
 module.exports = {
-    method: "GET",
+    method: "POST",
     /**
      * @param {Request} req
      * @param {Response} res
