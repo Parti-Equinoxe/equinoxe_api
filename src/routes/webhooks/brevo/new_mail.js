@@ -10,7 +10,9 @@ module.exports = {
     async exec(req, res) {
         const data = req.body;
         console.dir(data, {depth: null});
+        let count = 0;
         for (const mail of data.items) {
+            if (!mail["Corps du texte"]) continue;
             console.log(mail["Date d'envoi"]);
             const date= new Date(Date.now())
             const embed = {
@@ -23,7 +25,8 @@ module.exports = {
             await axios.post(urlWebhookMail, {
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
+            count++;
         }
-        return {message: "Webhook envoyé vers discord"};
+        return {message: `${count} webhook envoyé vers discord`};
     }
 }
