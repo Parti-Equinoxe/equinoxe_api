@@ -9,6 +9,7 @@ module.exports = {
      */
     async exec(req, res) {
         const data = req.body;
+        if (!data || !data.items) return {error: "Bad event."};
         console.dir(data, {depth: null});
         let count = 0;
         for (const mail of data.items) {
