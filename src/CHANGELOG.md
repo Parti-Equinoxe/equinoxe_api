@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.2.2...v1.3.0) (2025-04-07)
+
+
+### Features
+
+* ajout version dans env + date démarage ([825f853](https://github.com/Parti-Equinoxe/equinoxe_api/commit/825f8538ebddc7e45bc05b92f42d6f19377f080e))
+* **webhook mail:** ajout webhook parser vers discord pour les nouveaux mails ([090b468](https://github.com/Parti-Equinoxe/equinoxe_api/commit/090b4682818f157963e5c5d9412b1f0dd0f8389c))
+
+
+### Bug Fixes
+
+* crash res.redirect ([b917e24](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b917e24ecbf408083099ef9a94dd6a3e1b56ba06))
+* supprimer des log inutiles ([b445298](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b4452989391e709c6696e14b6417d3907e27a8c4))
+* unlogin bloqué par un return ([b9a9dd8](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b9a9dd83f0503fb32a03982de89abd72aaa9f43a))
+
 ## [1.2.3](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.2.2...v1.2.3) (2025-03-11)
 
 
