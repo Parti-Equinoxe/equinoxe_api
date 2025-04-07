@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.2](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.3.1...v1.3.2) (2025-04-07)
+
+
+### Bug Fixes
+
+* **webhook mail:** Ajout verif si pas de body ([dbd0377](https://github.com/Parti-Equinoxe/equinoxe_api/commit/dbd03775f3464ab514d016877a35020e04f36550))
+* **webhook mail:** crash si pas de corps de text ([63521a6](https://github.com/Parti-Equinoxe/equinoxe_api/commit/63521a6d1b6e759ce5178f904cd1ae1b77ae061e))
+
 ## [1.3.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.3.0...v1.3.1) (2025-04-07)
 
 
