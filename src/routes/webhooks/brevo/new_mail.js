@@ -1,5 +1,4 @@
 const axios = require("axios");
-const urlWebhookMail = "https://discord.com/api/webhooks/1334093029232873473/OnyH_BQ9eM4RTM5lR0KMmcNWr11PKSkFg9gOjsbBkrZwXcjgOpec0GG3LX0hVqcr_TE8";
 module.exports = {
     method: "POST",
     /**
@@ -23,7 +22,7 @@ module.exports = {
                 color: parseInt("19171C", 16),
                 footer:{text: mail["Département"] ?? null}
             };
-            await axios.post(urlWebhookMail, {
+            await axios.post(process.env.DISCORD_WEBHOOK_RELECTURE, {
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
