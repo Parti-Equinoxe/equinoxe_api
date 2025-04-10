@@ -14,7 +14,7 @@
     "cli-color": "^2.0.4",
     "cookie-parser": "^1.4.7",
     "dotenv": "16.4.7",
-    "express": "^4.21.2"
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "commit-and-tag-version": "^12.5.0",
