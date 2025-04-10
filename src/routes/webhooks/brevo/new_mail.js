@@ -13,10 +13,10 @@ module.exports = {
         let count = 0;
         for (const mail of data.items) {
             if (!mail["Corps du texte"]) continue;
-            console.log(mail["Date d'envoi"]);
             const date= new Date(Date.now())
+            const dateEnvoi = new Date(mail["Date d'envoi"]);
             const embed = {
-                title: mail["Objet"] ?? "Nouveau Mail :",
+                title: `${mail["Objet"] ?? "Nouveau Mail :"} - ${dateEnvoi.getDate()}/${dateEnvoi.getMonth()+1}/${dateEnvoi.getFullYear()}`.slice(0,99),
                 description: mail["Corps du texte"].slice(0, 4000),
                 timestamp: date.toISOString(),
                 color: parseInt("19171C", 16),
