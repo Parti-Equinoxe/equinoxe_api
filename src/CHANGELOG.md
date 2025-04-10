@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.3.4...v1.4.0) (2025-04-10)
+
+
+### Features
+
+* **webhook mail:** ajout date d'envoie ([535aabd](https://github.com/Parti-Equinoxe/equinoxe_api/commit/535aabd3e2baaa3dae21a745aed10f7e2edf1f89))
+
 ## [1.3.4](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.3.3...v1.3.4) (2025-04-10)
 
 
