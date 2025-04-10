@@ -20,7 +20,7 @@ module.exports = {
                 description: mail["Corps du texte"].slice(0, 4000),
                 timestamp: date.toISOString(),
                 color: parseInt("19171C", 16),
-                footer:{text: mail["Département"] ?? null}
+                footer:{text: mail["Mail envoi"].toString() ?? null}
             };
             await axios.post(process.env.DISCORD_WEBHOOK_RELECTURE, {
                 embeds: [embed]
