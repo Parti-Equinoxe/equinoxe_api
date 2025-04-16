@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.4.0...v1.4.1) (2025-04-16)
+
+
+### Bug Fixes
+
+* crash baserow si au démarage ([05cad1c](https://github.com/Parti-Equinoxe/equinoxe_api/commit/05cad1cacc132b0e8b2e112a77b083bd50c2f2c1))
+
 ## [1.4.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.3.4...v1.4.0) (2025-04-10)
 
 
