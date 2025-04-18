@@ -1,9 +1,6 @@
 const axios = require("axios");
 const champs ={
-    description: "Description de l'événement",
     title: "Nom complet test",
-    footer: "Ville",
-    date: "Date"
 };
 
 module.exports = {
@@ -19,17 +16,13 @@ module.exports = {
         if (!data || !data.items) return {error: "Bad event data."};
         if (data.event_type !== "rows.created") return {error: "Bad event type."};
         let count = 0;
-        for (const mail of data.items) {
-            if (!mail[champs.title]) continue;
+        for (const event of data.items) {
+            if (!event[champs.title]) continue;
             const date= new Date(Date.now())
-            const dateEnvoi = new Date(mail[champs.date]);
-            console.log(dateEnvoi);
             const embed = {
-                title: `${mail[champs.title] ?? "Nouveau Évenement :"} - ${dateEnvoi.getDate()}/${dateEnvoi.getMonth()+1}/${dateEnvoi.getFullYear()}`.slice(0,99),
-                description: mail["Corps du texte"].slice(0, 4000),
+                title: `${event[champs.title] ?? "Nouveau Évenement (sans nom…)"}`.slice(0,99),
                 timestamp: date.toISOString(),
                 color: parseInt("19171C", 16),
-                footer:{text:( mail[champs.footer] ?? "").toString() ?? null}
             };
             await axios.post(process.env.DISCORD_WEBHOOK_SITE_INTERNET, {
                 embeds: [embed]
