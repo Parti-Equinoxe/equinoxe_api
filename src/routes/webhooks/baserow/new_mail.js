@@ -32,7 +32,7 @@ module.exports = {
                 footer:{text:( mail[champs.footer] ?? "").toString() ?? null}
             };
             await axios.post(process.env.DISCORD_WEBHOOK_RELECTURE, {
-                content: `Ya un peu de travail <@&${mail[champs.roleID]}> !!`,
+                content: `Ya un peu de travail <@&${champs.roleID}> !!`,
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
