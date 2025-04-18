@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.5.0...v1.6.0) (2025-04-18)
+
+
+### Features
+
+* **webhook evenement:** ajout tag role équipe sitte internet ([c7809d8](https://github.com/Parti-Equinoxe/equinoxe_api/commit/c7809d8409d850b683e066cab3a336c2123f1047))
+* **webhook mail:** ajout tag role relecteur ([67303ae](https://github.com/Parti-Equinoxe/equinoxe_api/commit/67303aedd94258c58a5204846c1fd48ded379ad4))
+
+
+### Bug Fixes
+
+* **webhook evenement:** oblier de mettre l'env ([bb7b1e4](https://github.com/Parti-Equinoxe/equinoxe_api/commit/bb7b1e4a492d26548802c754d1d6eb792af3c0db))
+
 ## [1.5.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.4.1...v1.5.0) (2025-04-18)
 
 
