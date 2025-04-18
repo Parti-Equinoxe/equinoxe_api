@@ -3,7 +3,8 @@ const champs ={
     description: "Corps du texte",
     title: "Objet",
     footer: "Mail envoi",
-    date: "Date d'envoi"
+    date: "Date d'envoi",
+    roleID: "1297855613904224328" // relecteur
 };
 
 module.exports = {
@@ -31,6 +32,7 @@ module.exports = {
                 footer:{text:( mail[champs.footer] ?? "").toString() ?? null}
             };
             await axios.post(process.env.DISCORD_WEBHOOK_RELECTURE, {
+                content: `Ya un peu de travail <@&${mail[champs.roleID]}> !!`,
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
