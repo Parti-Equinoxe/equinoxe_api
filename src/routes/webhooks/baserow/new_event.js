@@ -1,6 +1,7 @@
 const axios = require("axios");
 const champs ={
     title: "Nom complet test",
+    roleID: "1307313573755879454" // equipe site internet
 };
 
 module.exports = {
@@ -25,6 +26,7 @@ module.exports = {
                 color: parseInt("19171C", 16),
             };
             await axios.post(process.env.DISCORD_WEBHOOK_SITE_INTERNET, {
+                content: `Ya un nouvel évenement <@&${event[champs.roleID]}> !!`,
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
