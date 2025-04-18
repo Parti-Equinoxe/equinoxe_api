@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.2](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.0...v1.6.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* **webhook evenement:** fix get roleID + sup verif si pas de titre ([fe2df73](https://github.com/Parti-Equinoxe/equinoxe_api/commit/fe2df73e872df730cdd2811f3129e56228837507))
+* **webhook mail:** fix get roleID ([a212bad](https://github.com/Parti-Equinoxe/equinoxe_api/commit/a212bad06f01255b1923bb0207dcab71349827fa))
+
+## [1.6.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.0...v1.6.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* **webhook evenement:** fix get roleID + sup verif si pas de titre ([fe2df73](https://github.com/Parti-Equinoxe/equinoxe_api/commit/fe2df73e872df730cdd2811f3129e56228837507))
+
 ## [1.6.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.5.0...v1.6.0) (2025-04-18)
 
 
