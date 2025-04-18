@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.4.1...v1.5.0) (2025-04-18)
+
+
+### Features
+
+* **webhook evenement :** ajout webhook evenement ([bb85630](https://github.com/Parti-Equinoxe/equinoxe_api/commit/bb85630c2b6dd1a050f0662dc5d5b997fe005202))
+
+
+### Bug Fixes
+
+* **webhook evenement :** renomer variable + mauvais nom objet ([4e8b27c](https://github.com/Parti-Equinoxe/equinoxe_api/commit/4e8b27cfac1d08cad2b446c6a4a5fd1e4c7aa1ae))
+* **webhook mail:** clean up + configurabilité ([7beb8df](https://github.com/Parti-Equinoxe/equinoxe_api/commit/7beb8dfbb0ef1f38c8ef7de4491f0941b1a30e54))
+
 ## [1.4.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.4.0...v1.4.1) (2025-04-16)
 
 
