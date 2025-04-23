@@ -1,6 +1,7 @@
 const axios = require("axios");
-const champs ={
+const champs = {
     title: "Nom complet test",
+    description: "Description de l'événement",
     roleID: "1307313573755879454" // equipe site internet
 };
 
@@ -18,19 +19,22 @@ module.exports = {
         if (data.event_type !== "rows.created") return {error: "Bad event type."};
         let count = 0;
         for (const event of data.items) {
-            const date= new Date(Date.now())
+            if (!event[champs.title]) continue;
+            const publique = !!event["Evénement public ?"] && event["Evénement public ?"].value !== "Oui";
+            const date = new Date(Date.now())
             const embed = {
-                title: `${event[champs.title] ?? "Nouveau Évenement (sans nom…)"}`.slice(0,99),
+                title: event[champs.title].slice(0, 99),
+                description: (event[champs.description] ?? "Pas de descrption").slice(0, 4000),
                 timestamp: date.toISOString(),
                 color: parseInt("19171C", 16),
             };
             await axios.post(process.env.DISCORD_WEBHOOK_SITE_INTERNET, {
-                content: `Ya un nouvel évenement <@&${champs.roleID}> !!`,
+                content: publique ? `Ya un nouvel évenement <@&${champs.roleID}> !!` : null,
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
         }
-        if (count===0) return {message: "Accepted"}
+        if (count === 0) return {message: "Accepted"}
         return {message: `${count} webhook envoyé vers discord`};
     }
 }
