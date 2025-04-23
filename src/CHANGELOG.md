@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.3](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.2...v1.6.3) (2025-04-23)
+
+
+### Bug Fixes
+
+* **webhook evenement:** envoie pas si le titre est vide + verif si event public + ajout descrption ([29476c3](https://github.com/Parti-Equinoxe/equinoxe_api/commit/29476c357ec343c6e093f47703f33ec146b9ff94))
+
 ## [1.6.2](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.0...v1.6.2) (2025-04-18)
 
 
