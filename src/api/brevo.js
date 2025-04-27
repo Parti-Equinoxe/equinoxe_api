@@ -36,7 +36,7 @@ const status = require("./lists_brevo.json");
 module.exports.config = {
     headers: {
         "accept": "application/json",
-        "api-key": process.env.TOKEN_BREVO,
+        "api-key": process.env.BREVO_TOKEN,
         "content-type": "application/json"
     }
 }
