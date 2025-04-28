@@ -329,7 +329,7 @@ module.exports.getEventNoCR = async () => {
                 },
                     {
                         type: "empty",
-                        field: "Compte rendu",
+                        field: "4-Participants-et-CR",
                         value: ""
                     }],
                 groups: []
