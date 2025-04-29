@@ -20,7 +20,7 @@ module.exports = {
         let count = 0;
         for (const event of data.items) {
             if (!event[champs.title]) continue;
-            const publique = !!event["Evénement public ?"] && event["Evénement public ?"].value !== "Oui";
+            if (!event["Evénement public ?"] || event["Evénement public ?"].value !== "Oui") continue;
             const date = new Date(Date.now())
             const embed = {
                 title: event[champs.title].slice(0, 99),
@@ -29,7 +29,7 @@ module.exports = {
                 color: parseInt("19171C", 16),
             };
             await axios.post(process.env.DISCORD_WEBHOOK_SITE_INTERNET, {
-                content: publique ? `Ya un nouvel évenement <@&${champs.roleID}> !!` : null,
+                content: `Ya un nouvel évenement <@&${champs.roleID}> !!`,
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
