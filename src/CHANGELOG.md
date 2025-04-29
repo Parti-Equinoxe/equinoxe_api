@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.3...v1.7.0) (2025-04-29)
+
+
+### Features
+
+* ajout dossier panneauramix ([8d0971b](https://github.com/Parti-Equinoxe/equinoxe_api/commit/8d0971ba0d2575eff720a368e04046db33bca70e))
+* ajout url du webhook de test ([b495c9c](https://github.com/Parti-Equinoxe/equinoxe_api/commit/b495c9cedf3004eaa4f7d35eff99116f47106712))
+* **baserow:** debut ajout baserow ([005e706](https://github.com/Parti-Equinoxe/equinoxe_api/commit/005e7069fd20d06e9c8cc97cf4a8bfbec88d1963))
+* code pour envoyer un rappel pour les cr d'evenement non rempli ([f02a975](https://github.com/Parti-Equinoxe/equinoxe_api/commit/f02a975ba19f87a61da35d5fe50c520fa0fc55b4))
+
+
+### Bug Fixes
+
+* crash si plusieur parametre car pas le bon séparateur ([c974958](https://github.com/Parti-Equinoxe/equinoxe_api/commit/c9749588bebb01a17e075009d242a7916b581bfd))
+* **env:** env renomer ([1594e00](https://github.com/Parti-Equinoxe/equinoxe_api/commit/1594e006588a823db828197e6d2c975171f2881c))
+* **env:** rend les env plus logique ([c3f3ded](https://github.com/Parti-Equinoxe/equinoxe_api/commit/c3f3ded8510bf8b4c249f29aa1a13b31cf24ce39))
+* mauvaise colonne ([1f030a8](https://github.com/Parti-Equinoxe/equinoxe_api/commit/1f030a823662ca30b277c1834af4ab6d1f2cf928))
+* **webhook evenement:** mauvais condition boolean + continue ([3c4de07](https://github.com/Parti-Equinoxe/equinoxe_api/commit/3c4de07a972fb0411bd3289731d78a87f7ace08f))
+
 ## [1.6.3](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.2...v1.6.3) (2025-04-23)
 
 
