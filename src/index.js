@@ -80,6 +80,7 @@ async function init() {
             }
             if (result.redirect) return res.redirect(result.redirect);
             if (res.headersSent) return;
+            if (result.html) return res.status(result.error ? 400 : 200).send(result.html);
             return res.status(result.error ? 400 : 200).send({
                 status: result.error ? 400 : 200,
                 state: result.error ? "Bad Request" : "OK",
