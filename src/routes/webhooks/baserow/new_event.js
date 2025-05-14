@@ -1,9 +1,11 @@
 const axios = require("axios");
 const champs = {
-    title: "Nom complet test",
+    title: "Nom complet",
     description: "Description de l'événement",
-    roleID: "1307313573755879454" // equipe site internet
+    roleID: "1307313573755879454", // equipe site internet
+    public: "Evénement public ?"
 };
+const option_public = ["Oui", "Tout public"]
 
 module.exports = {
     method: "POST",
@@ -20,7 +22,7 @@ module.exports = {
         let count = 0;
         for (const event of data.items) {
             if (!event[champs.title]) continue;
-            if (!event["Evénement public ?"] || event["Evénement public ?"].value !== "Oui") continue;
+            if (!event[champs.public] || !option_public.includes(event[champs.public].value)) continue;
             const date = new Date(Date.now())
             const embed = {
                 title: event[champs.title].slice(0, 99),
