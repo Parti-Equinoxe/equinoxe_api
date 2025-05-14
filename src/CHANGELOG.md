@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.8.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.7.0...v1.8.0) (2025-05-14)
+
+
+### Features
+
+* ajout du champs html => pour envoyer de l'html ([468e1fd](https://github.com/Parti-Equinoxe/equinoxe_api/commit/468e1fd8b502be037dee469b8147c6af9cd7253b))
+
+
+### Bug Fixes
+
+* **webhook evenement:** maj nom champs + envoi si oui ou tout public ([ad0aae1](https://github.com/Parti-Equinoxe/equinoxe_api/commit/ad0aae160140be9b87d1048ccd31a1032e14f4f2))
+
 ## [1.7.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.6.3...v1.7.0) (2025-04-29)
 
 
