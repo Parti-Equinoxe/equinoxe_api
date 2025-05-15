@@ -6,3 +6,4 @@
 src/service-account-key.json
 **/*.iml
 .env
+src/.env

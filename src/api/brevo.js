@@ -36,7 +36,7 @@ const status = require("./lists_brevo.json");
 module.exports.config = {
     headers: {
         "accept": "application/json",
-        "api-key": process.env.TOKEN_BREVO,
+        "api-key": process.env.BREVO_TOKEN,
         "content-type": "application/json"
     }
 }
@@ -52,7 +52,7 @@ function formatError(e) {
  * @return {Promise<Object>}
  */
 module.exports.get = async (path, parameters = []) => {
-    return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`) : ""}`,
+    return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&")  : ""}`,
         this.config
     ).catch(formatError)).data;
 }
@@ -63,7 +63,7 @@ module.exports.get = async (path, parameters = []) => {
  * @return {Promise<Object>}
  */
 module.exports.put = async (path, data, parameters = []) => {
-    return (await axios.put(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`) : ""}`,
+    return (await axios.put(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&")  : ""}`,
         data,
         this.config
     ).catch(formatError)).data;
