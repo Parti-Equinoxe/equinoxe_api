@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.8.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.8.0...v1.8.1) (2025-05-15)
 
+### Mis à jour de packages :
+* axios
+* nodemon (devDep)
+* dotenv
+* commit-and-tag-version
+* express
+
 ## [1.8.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.7.0...v1.8.0) (2025-05-14)
 
 
