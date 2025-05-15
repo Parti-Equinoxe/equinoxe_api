@@ -43,7 +43,7 @@ const status = require("./lists_brevo.json");
 module.exports.config = {
     headers: {
         "accept": "application/json",
-        "Authorization": `Bearer ${process.env.TOKEN_QOMON}`,
+        "Authorization": `Bearer ${process.env.QOMON_TOKEN}`,
         "content-type": "application/json",
         "user-agent": "equinoxe/api" // car qomon a bloquer axios comme user-agent
     },

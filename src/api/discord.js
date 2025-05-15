@@ -185,3 +185,9 @@ module.exports.getToken = async (identifier) => {
         refresh_token: resp.attributes.DISCORD_REFRESH_TOKEN
     });
 }
+
+/**
+ * L'URL du webhook de test (envoi dans #test-bot)
+ * @type {string}
+ */
+module.exports.webhookTestURL = "https://discord.com/api/webhooks/1365998103714467951/VR4-YoSY0XYoFK-sfHKNYNhy9nr0oYHfRKEiGYuH3_ado2zkxspj5e6QCAypX3ZYL4VX";
