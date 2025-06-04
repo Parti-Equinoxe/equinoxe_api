@@ -2,9 +2,7 @@ const {transformList, getContact} = require("../../../api/brevo");
 const {getToken, pushMetaData, saveToken} = require("../../../api/discord");
 //const form_NS_id = 82467;
 module.exports = {
-    token: true,
     method: "POST",
-    disable: true,
     /**
      * @param {Request} req
      * @param {Response} res
@@ -12,7 +10,7 @@ module.exports = {
      */
     async exec(req, res) {
         const data = req.body;
-        console.dir(data, {depth: null});
+        //console.dir(data, {depth: null});
         if (!data || data.event !== "list_addition" || !data.list_id || (!data.emails && !data.email)) return {error: "Bad event."};
         let count = 0;
         //const list_ids = data.list_id.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id));
@@ -21,7 +19,7 @@ module.exports = {
             let token = await getToken({email: email});
             if (!token) continue;
             const userData = await getContact(email);
-            console.log(userData);
+            //console.log(userData);
             const list = transformList(userData.listIds);
             const res = await pushMetaData(userData.attributes.DISCORD_ID, token,{
                 adh: +(list.adherents ?? 0),
