@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.8.2](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.8.1...v1.8.2) (2025-06-04)
+
+
+### Bug Fixes
+
+* réactivation du webhook ([fc70146](https://github.com/Parti-Equinoxe/equinoxe_api/commit/fc70146304d1bad28c35fd7e59499edb70c97ab1))
+
 ## [1.8.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.8.0...v1.8.1) (2025-05-15)
 
 ### Mis à jour de packages :
