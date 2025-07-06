@@ -1,3 +1,7 @@
+/**
+ * Module pour communiquer avec l'api baserow
+ * @module baserow
+ */
 const axios = require("axios");
 const link = "https://api.baserow.io/api/";
 
@@ -253,7 +257,8 @@ const link = "https://api.baserow.io/api/";
  **/
 module.exports.config = {
     headers: {
-        Authorization: `Token ${process.env.BASEROW_TOKEN}`
+        Authorization: `Token ${process.env.BASEROW_TOKEN}`,
+        "Content-Type": "application/json"
     }
 };
 
@@ -268,17 +273,25 @@ module.exports.fieldsNames = {
 
 /**
  * List des tables du baserow
- * @type {{adh_symp: number, event: number}}
+ * @type {{adh_symp: number, event: number, commune: number, panneau: number, circuit: number, circo: number}}
  */
 module.exports.tables = {
     adh_symp: 220744,
     event: 220745,
     commune: 478573,
-    panneau: 518189
+    panneau: 518189,
+    circuit: 594949,
+    circo: 531292
 };
 
 function formatError(e) {
-    return {data: {full: e, error: e.toString(), message: (e.response ?? {statusText: "No message"}).statusText}};
+    return {
+        data: {
+            error: e.toString(),
+            message: `${e.response.data.error} : ${JSON.stringify(e.response.data.detail)}`,
+            full: e
+        }
+    };
 }
 
 /**
@@ -288,10 +301,47 @@ function formatError(e) {
  * @return {Promise<Object>}
  */
 module.exports.get = async (path, parameters = []) => {
-    console.log(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`);
     return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`,
         this.config
     ).catch(formatError)).data;
+}
+
+/**
+ * Permet de faire une requete (POST) sur l'api brevo
+ * @param {string} path - l'action à effectuer (voir doc brevo)
+ * @param {Array<{label: string, value: string}>} parameters - les parametres eventuels
+ * @param {Object} data - les données à envoyer
+ * @return {Promise<Object>}
+ */
+module.exports.post = async (path, parameters = [], data) => {
+    return (await axios.post(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`,
+        data, this.config
+    ).catch(formatError));
+}
+
+/**
+ * Permet de faire une requete (DELETE) sur l'api brevo
+ * @param {string} path - l'action à effectuer (voir doc brevo)
+ * @param {Array<{label: string, value: string}>} parameters - les parametres eventuels
+ * @return {Promise<Object>}
+ */
+module.exports.delete = async (path, parameters = []) => {
+    return (await axios.delete(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`,
+        this.config
+    ).catch(formatError));
+}
+
+/**
+ * Permet de faire une requete (PATCH) sur l'api brevo
+ * @param {string} path - l'action à effectuer (voir doc brevo)
+ * @param {Array<{label: string, value: string}>} parameters - les parametres eventuels
+ * @param {Object} data - les données à modifier
+ * @return {Promise<Object>}
+ */
+module.exports.patch = async (path, parameters = [], data) => {
+    return (await axios.patch(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`,
+        data, this.config
+    ).catch(formatError));
 }
 
 /**
