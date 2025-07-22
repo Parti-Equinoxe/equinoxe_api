@@ -252,6 +252,33 @@ const link = "https://api.baserow.io/api/";
  */
 
 /**
+ * @typedef {{
+ *     "id": number,
+ *     "order": string,
+ *     "Nom": string,
+ *     "11-Commune du panneau": Array<{id: number, value: string}>,
+ *     "Longitude": float,
+ *     "Latitude": float,
+ *     "1-Dernière personne passée": Array<{id: number, value: string}>,
+ *     "Date dernier passage": Date,
+ *     "A Supprimer": boolean,
+ *     "13-Circonscriptions": Array<{id: number, value: string}>,
+ *     "Adresse": string,
+ *     "Description": string,
+ *     "Date de création": "2020-01-01T12:00:00Z",
+ *     "Dernière modification": "2020-01-01T12:00:00Z",
+ *     "1-Dernière personne a avoir modifié": [
+ *         {
+ *             "id": 0,
+ *             "value": "string"
+ *         }
+ *     ],
+ *     "Compteur": 0,
+ *     "Décollées ?": true
+ * }}
+ */
+
+/**
  * Configuration pour se connecter à l'api baserow
  * @type {{url: string, headers: {Authorization: string}}}
  **/
