@@ -85,6 +85,23 @@ module.exports.collagePanneau = async (id, userID) => {
 }
 
 /**
+ * Permet d'envoyer un nombre réduit d'information
+ * @param panneau {Panneau}
+ * @return {{id, Nom, Longitude, Latitude, "A Supprimer", Adresse, "Date dernier passage"}}
+ */
+module.exports.info = (panneau) =>{
+    return {
+        id: panneau.id,
+        "Nom": panneau["Nom"],
+        "Longitude": panneau["Longitude"],
+        "Latitude": panneau["Latitude"],
+        "A Supprimer": panneau["A Supprimer"],
+        "Adresse": panneau["Adresse"],
+        "Date dernier passage": panneau["Date dernier passage"]
+    }
+}
+
+/**
  * Permet de recuper les id des panneaux d'une commune par son id baserow
  * @param id_commune {Commune.id} - ID de la commune
  * @param page {number} - Numéro de la page
@@ -105,10 +122,7 @@ module.exports.getPanneauxCommune = async (id_commune, page = 1) => {
     }]);
     if (!result || result.count === 0 || !result.results) return [];
     return result.results.map((panneau) => {
-        return {
-            id: panneau.id,
-            "Nom": panneau["Nom"]
-        }
+        return module.exports.info(panneau);
     });
 }
 
@@ -133,10 +147,7 @@ module.exports.getPanneauxCirco = async (id_circo, page = 1) => {
     }]);
     if (!result || result.count === 0 || !result.results) return [];
     return result.results.map((panneau) => {
-        return {
-            id: panneau.id,
-            "Nom": panneau["Nom"]
-        }
+        return module.exports.info(panneau);
     });
 }
 
@@ -180,9 +191,6 @@ module.exports.getPanneauxInSquare = async (lon_min, lon_max, lat_min, lat_max, 
     }]);
     if (!result || result.count === 0 || !result.results) return [];
     return result.results.map((panneau) => {
-        return {
-            id: panneau.id,
-            "Nom": panneau["Nom"]
-        }
+        return module.exports.info(panneau);
     });
 }
