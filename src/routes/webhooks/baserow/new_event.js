@@ -2,8 +2,8 @@ const axios = require("axios");
 const champs = {
     title: "Nom complet",
     description: "Description de l'événement",
-    roleID: "1307313573755879454", // equipe site internet
-    public: "Evénement public ?"
+    public: "Evénement public ?",
+    roleID: "1307313573755879454" // equipe site internet
 };
 const option_public = ["Oui", "Tout public"]
 
@@ -31,7 +31,7 @@ module.exports = {
                 color: parseInt("19171C", 16),
             };
             await axios.post(process.env.DISCORD_WEBHOOK_SITE_INTERNET, {
-                content: `Ya un nouvel évenement <@&${champs.roleID}> !!`,
+                content: `Ya un nouvel événement <@&${champs.roleID}> !!`,
                 embeds: [embed]
             }, {headers: {"Content-Type": "application/json"}});
             count++;
