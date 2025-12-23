@@ -52,18 +52,19 @@ function formatError(e) {
  * @return {Promise<Object>}
  */
 module.exports.get = async (path, parameters = []) => {
-    return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&")  : ""}`,
+    return (await axios.get(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`,
         this.config
     ).catch(formatError)).data;
 }
 /**
  * Permet de faire une requete (PUT) sur l'api brevo
  * @param {string} path - l'action à effectuer (voir doc brevo)
+ * @param {Object} data - les données à envoyer
  * @param {Array<{label: string, value: string}>} parameters - les parametres eventuels
  * @return {Promise<Object>}
  */
 module.exports.put = async (path, data, parameters = []) => {
-    return (await axios.put(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&")  : ""}`,
+    return (await axios.put(`${link}${path}${parameters.length > 0 ? "?" + parameters.map(p => `${p.label}=${p.value}`).join("&") : ""}`,
         data,
         this.config
     ).catch(formatError)).data;
@@ -118,10 +119,10 @@ module.exports.updateContact = async (email, data) => {
  */
 module.exports.transformList = (listIds) => {
     //const lists = listIds.filter(id => status.filters.brevo.includes(id)).map((id) => status.status.find((s) => s.id_brevo === id));
-    return status.status.reduce((acc, current)=>{
+    return status.status.reduce((acc, current) => {
         acc[current.name] = listIds.includes(current.id_brevo);
         return acc;
-    },{});
+    }, {});
 }
 
 /**
