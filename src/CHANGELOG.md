@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.9.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.8.3...v1.9.0) (2025-12-23)
+
+
+### Features
+
+* **baserow:** ajout de psot, delete et patch + amelioration log erreur ([c44b5a0](https://github.com/Parti-Equinoxe/equinoxe_api/commit/c44b5a0970de9459527569496015549abd56b518))
+* **panneauramix:** ajout config ([3e5e786](https://github.com/Parti-Equinoxe/equinoxe_api/commit/3e5e7866b98a44e8b7e15ed14eabee33de1d6ac0))
+* **panneauramix:** ajout de fichier de test ([cc3574a](https://github.com/Parti-Equinoxe/equinoxe_api/commit/cc3574a2fe97b5cfe441dcfe6820b4d23eb8c322))
+* **panneauramix:** ajout fct circo et commune par code ([e77b713](https://github.com/Parti-Equinoxe/equinoxe_api/commit/e77b713efcd5162f7533103562e6ccfe1021d44c))
+* **panneauramix:** ajout fct info ([3d40779](https://github.com/Parti-Equinoxe/equinoxe_api/commit/3d4077953a48f905914224c51757784257f6b797))
+* **panneauramix:** ajout route panneaux/collage ([8538466](https://github.com/Parti-Equinoxe/equinoxe_api/commit/85384665d1b495d184948c78edc2d91c08d9a541))
+* **panneauramix:** ajout route panneaux/info ([1320e9b](https://github.com/Parti-Equinoxe/equinoxe_api/commit/1320e9b2b4a485c37cdadc937f7572aa102d7314))
+* **panneauramix:** dev api interne ([c410606](https://github.com/Parti-Equinoxe/equinoxe_api/commit/c410606998ef50cefa109dde82fcea08756ba7b4))
+* **panneauramix:** index route ([1877e13](https://github.com/Parti-Equinoxe/equinoxe_api/commit/1877e13bb963768b59119cc3bd87a468f4cab41a))
+* **panneauramix:** permet d'obtenir les panneaux d'une commune ([f5b10ac](https://github.com/Parti-Equinoxe/equinoxe_api/commit/f5b10ac98769656c80c2a7979720777c62394a89))
+* **panneauramix:** permet d'obtenire les panneau d'une circo ([348cef5](https://github.com/Parti-Equinoxe/equinoxe_api/commit/348cef5671a4075be4156fec3436387bc13b58d8))
+* **panneauramix:** permet d'obtenire les panneaux dans une zone géographique ([e6c79e3](https://github.com/Parti-Equinoxe/equinoxe_api/commit/e6c79e33c0e21b49405e44e00faddebd8b2a586a))
+* **panneauramix:** rajout de la table panneaux ([d8d7ad4](https://github.com/Parti-Equinoxe/equinoxe_api/commit/d8d7ad443125ec6e8dad45b1c7cef07e9c4759d6))
+* **panneauramix:** version route ([402474b](https://github.com/Parti-Equinoxe/equinoxe_api/commit/402474bc65e861fd9c2c7c63ef3b821fe79e8d7d))
+
+
+### Bug Fixes
+
+* ajout return ([1d5652c](https://github.com/Parti-Equinoxe/equinoxe_api/commit/1d5652ca29258f258ae91732d26bf8c58c96b8b3))
+
 ## [1.8.3](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.8.2...v1.8.3) (2025-12-23)
 
 
