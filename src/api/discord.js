@@ -174,12 +174,11 @@ module.exports.getToken = async (identifier) => {
     let resp;
     if (identifier.hasOwnProperty("email")) {
         resp = await getContact(identifier.email);
-        if (!resp.attributes.DISCORD_ID) return null;
     }
     if (identifier.hasOwnProperty("userID")) {
         resp = await getContactFromDiscord(identifier.userID);
-        if (!resp) return null;
     }
+    if (!resp || !resp.attributes || !resp.attributes.DISCORD_ID || !resp.attributes.DISCORD_REFRESH_TOKEN) return null;
     return await this.refreshToken(resp.attributes.DISCORD_ID, {
         expires_at: 0,
         refresh_token: resp.attributes.DISCORD_REFRESH_TOKEN
