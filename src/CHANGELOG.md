@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.9.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.9.0...v1.9.1) (2026-01-06)
+
+
+### Bug Fixes
+
+* **test:** ajout log on receive (baserow -> event/mail) ([ffc7b5e](https://github.com/Parti-Equinoxe/equinoxe_api/commit/ffc7b5e3024834eb7f7983ec040b314b7dad2682))
+* **test:** ajoute log pour test (crash) ([0c642cd](https://github.com/Parti-Equinoxe/equinoxe_api/commit/0c642cd91f8768d6aeb362897d76f3ff342bc481))
+
 ## [1.9.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.8.3...v1.9.0) (2025-12-23)
 
 
