@@ -67,8 +67,10 @@ module.exports.refreshToken = async (userId, token) => {
                 password: process.env.DISCORD_CLIENT_SECRET
             }
         });
+        console.log(tokenResponse.data);
         return formatToken(tokenResponse.data);
     }
+    console.log("Pas besoin de maj");
     return token;
 }
 
@@ -178,6 +180,8 @@ module.exports.getToken = async (identifier) => {
     if (identifier.hasOwnProperty("userID")) {
         resp = await getContactFromDiscord(identifier.userID);
     }
+    console.log(identifier);
+    console.log(resp);
     if (!resp || !resp.attributes || !resp.attributes.DISCORD_ID || !resp.attributes.DISCORD_REFRESH_TOKEN) return null;
     return await this.refreshToken(resp.attributes.DISCORD_ID, {
         expires_at: 0,
