@@ -16,6 +16,10 @@ module.exports = {
      */
     async exec(req, res) {
         const data = req.body;
+        {
+            const date = new Date();
+            console.log(`Nouveau event reçu - ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}h${date.getMinutes()}`);
+        }
         console.dir(data, {depth: null});
         if (!data || !data.items) return {error: "Bad event data."};
         if (data.event_type !== "rows.created") return {error: "Bad event type."};
