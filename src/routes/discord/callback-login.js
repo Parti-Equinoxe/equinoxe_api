@@ -1,5 +1,5 @@
-const {transformList, isLinked, getContactFromId, getContactFromDiscord} = require("../../api/brevo");
-const {getOAuthTokens, getUserData, refreshToken, pushMetaData, saveToken} = require("../../api/discord");
+const {transformList, getContactFromId} = require("../../api/brevo");
+const {getOAuthTokens, getUserData, pushMetaData, saveToken} = require("../../api/discord");
 module.exports = {
     method: "GET",
     exec: async (req, res) => {
