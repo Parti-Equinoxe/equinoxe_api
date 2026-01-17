@@ -1,7 +1,8 @@
 const express = require('express');
 const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
-const { blue, magenta, blackBright, underline, redBright } = require("cli-color");
+const {blue, magenta, blackBright, underline, redBright} = require("cli-color");
+const axios = require("axios");
 
 // Utilisation de la version définit dans le package.json pour que ça soit automatique
 const version = require("./package.json").version;
@@ -70,7 +71,17 @@ async function init() {
                 const dateError = new Date(date);
                 console.log(redBright(`>> erreur dans ${route.route} le ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} à ${dateError.getHours()}h${dateError.getMinutes()}`));
                 console.log(e);
-                if (!res.headersSent) res.status(500).send({ state: "Internal Server Error", error: e, status: 500 });
+                if (!res.headersSent) res.status(500).send({state: "Internal Server Error", error: e, status: 500});
+
+                //permet d'envoyer un msg sur discord dans test-bot (1250809928642334763) s'il y a une erreur
+                axios.post(process.env.DISCORD_WEBHOOK_LOG_API, {
+                    embeds: [{
+                        title: `Erreur dans ${route.route}`,
+                        description: e.toString(),
+                        timestamp: dateError.toISOString(),
+                        color: parseInt("ff0000", 16),
+                    }]
+                }, {headers: {"Content-Type": "application/json"}}).catch((e)=> console.log(redBright(`>> erreur lors de l'envoi du webhook : ${e}`)));
             }
             if (!result || result.error) {
                 const dateError = new Date(date);
