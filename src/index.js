@@ -12,7 +12,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
-const tokens = ["ugveniegveiy"];
+const tokens = ["ugveniegveiy"]; // fonctionnalité pas utilisée
 let routes = [];
 
 // TODO: Stocker la dernier request si une erreur ce produit
