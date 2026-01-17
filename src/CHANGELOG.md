@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.10.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.9.1...v1.10.0) (2026-01-17)
+
+
+### Features
+
+* ajout log vers discord si erreur ([7736fa4](https://github.com/Parti-Equinoxe/equinoxe_api/commit/7736fa409fcad7c5d6ff59843c9a21485ddc0bb0))
+
+
+### Bug Fixes
+
+* maj version ([1299b7e](https://github.com/Parti-Equinoxe/equinoxe_api/commit/1299b7ef6dee3308f5015eaf83bfa157645c164b))
+
 ## [1.9.1](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.9.0...v1.9.1) (2026-01-06)
 
 
