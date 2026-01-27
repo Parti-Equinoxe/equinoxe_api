@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.11.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.10.0...v1.11.0) (2026-01-27)
+
+
+### Features
+
+* ajout event unsubscribe => maj role adh discord ([c26a875](https://github.com/Parti-Equinoxe/equinoxe_api/commit/c26a8757ed0c24a758df4998d95d4ced074f4b0e))
+
 ## [1.10.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.9.1...v1.10.0) (2026-01-17)
 
 
