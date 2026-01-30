@@ -12,7 +12,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
-const tokens = ["ugveniegveiy"]; // fonctionnalité pas utilisée
+const tokens = [process.env.SELF_BREVO_TOKEN];
 let routes = [];
 
 // TODO: Stocker la dernier request si une erreur ce produit
@@ -43,7 +43,6 @@ async function readDirRoutes(path) {
 function verifyToken(headers) {
     if (!headers.authorization) return false;
     const token = headers.authorization.replace("Bearer ", "");
-    console.log(token);
     return tokens.includes(token);
 }
 
@@ -57,11 +56,12 @@ async function init() {
             const date = Date.now();
             let result = {};
             if (route.token && !verifyToken(req.headers)) {
-                console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip})`));
+                const dateError = new Date(date);
+                console.log(redBright(`>> Unauthorized access to ${route.route} from ${req.headers.host} (${req.ip}) - ${dateError.getDate()}/${dateError.getMonth() + 1}/${dateError.getFullYear()} - ${dateError.getHours()}h${dateError.getMinutes()}`));
                 return res.status(401).send({
                     state: "Unauthorized",
                     status: 401,
-                    message: "You need to add authorization: Bearer <token> in the header.",
+                    message: "You need to add Authorization: Bearer <token> in the header.",
                     temps: Date.now() - date,
                 });
             }
@@ -81,7 +81,7 @@ async function init() {
                         timestamp: dateError.toISOString(),
                         color: parseInt("ff0000", 16),
                     }]
-                }, {headers: {"Content-Type": "application/json"}}).catch((e)=> console.log(redBright(`>> erreur lors de l'envoi du webhook : ${e}`)));
+                }, {headers: {"Content-Type": "application/json"}}).catch((e) => console.log(redBright(`>> erreur lors de l'envoi du webhook : ${e}`)));
             }
             if (!result || result.error) {
                 const dateError = new Date(date);

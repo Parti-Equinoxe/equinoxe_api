@@ -3,6 +3,7 @@ const {getToken, pushMetaData, saveToken} = require("../../../api/discord");
 //const form_NS_id = 82467;
 module.exports = {
     method: "POST",
+    token:true,
     /**
      * @param {Request} req
      * @param {Response} res

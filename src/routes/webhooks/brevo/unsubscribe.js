@@ -4,6 +4,7 @@ const status = require("../../../api/lists_brevo.json");
 //const form_NS_id = 82467;
 module.exports = {
     method: "POST",
+    token: true,
     /**
      * @param {Request} req
      * @param {Response} res
