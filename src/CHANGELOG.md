@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.11.0...v1.12.0) (2026-01-30)
+
+
+### Features
+
+* **token:** ajout token pour les webhooks brevo ([0d98d21](https://github.com/Parti-Equinoxe/equinoxe_api/commit/0d98d218eed4f474965c003cfcc0f783203753e2))
+
 ## [1.11.0](https://github.com/Parti-Equinoxe/equinoxe_api/compare/v1.10.0...v1.11.0) (2026-01-27)
 
 
